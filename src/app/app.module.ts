@@ -5,6 +5,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { 
+    path: 'music',
+    loadChildren: () => import('./music/music.module').then(m => m.MusicModule)
+  }
+]
 
 @NgModule({
   declarations: [
@@ -14,9 +22,12 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     MusicModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  
+}

@@ -2,7 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MusicPlayerComponent } from './music-player/music-player.component';
 import { MusicComponent } from './music.component';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule, Routes } from '@angular/router'
 
+const routes: Routes = [
+  {
+    path: '',
+    component: MusicComponent
+  }
+]
 
 @NgModule({
   declarations: [
@@ -13,7 +21,9 @@ import { MusicComponent } from './music.component';
     MusicPlayerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule, 
+    SharedModule,
+    RouterModule.forChild(routes)
   ]
 })
 export class MusicModule {

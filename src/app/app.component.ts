@@ -1,4 +1,3 @@
-import { Navitem, SideNavComponent } from './shared/side-nav/side-nav.component';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  navitemMusic: Navitem[] = [{label: "Player"}, {label: "Upload"}];
+  
   
 }
