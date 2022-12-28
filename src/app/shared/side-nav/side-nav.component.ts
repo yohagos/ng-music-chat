@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-
-export type Navitem = {label: string};
+import { Navitem } from "../models/navitems";
 
 @Component({
   selector: 'app-side-nav',
@@ -17,5 +15,6 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }
