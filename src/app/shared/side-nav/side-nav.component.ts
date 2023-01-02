@@ -17,6 +17,7 @@ export class SideNavComponent implements OnInit {
   constructor(private users: UsersService) {  }
 
   ngOnInit(): void {
+    this.GetUserList()
   }
 
   public GetUserList() {
