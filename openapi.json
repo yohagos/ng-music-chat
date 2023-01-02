@@ -1,0 +1,639 @@
+{
+  "openapi": "3.0.2",
+  "info": { "title": "FastAPI", "version": "0.2.0" },
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Login",
+        "operationId": "login_login_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": { "$ref": "#/components/schemas/Body_login_login_post" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get User",
+        "operationId": "get_user_user_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Id", "type": "integer" },
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ShowUser" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create New User",
+        "operationId": "create_new_user_user_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserBase" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ShowUser" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get All Users",
+        "operationId": "get_all_users_users_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get All Users Users Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ShowUser" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/upload_photo": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Post Uploaad Photo",
+        "operationId": "post_uploaad_photo_user_upload_photo_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_post_uploaad_photo_user_upload_photo_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/user/delete": {
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete Account",
+        "operationId": "delete_account_user_delete_delete",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/user/delete/all": {
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete Account And Songs",
+        "operationId": "delete_account_and_songs_user_delete_all_delete",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/music/add_song": {
+      "post": {
+        "tags": ["Music"],
+        "summary": "Add New Song",
+        "operationId": "add_new_song_music_add_song_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_add_new_song_music_add_song_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/music/all": {
+      "get": {
+        "tags": ["Music"],
+        "summary": "Get All Songs",
+        "operationId": "get_all_songs_music_all_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get All Songs Music All Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ShowMusic" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/music/all/{user}": {
+      "get": {
+        "tags": ["Music"],
+        "summary": "Get All Songs By User",
+        "operationId": "get_all_songs_by_user_music_all__user__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "User", "type": "string" },
+            "name": "user",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get All Songs By User Music All  User  Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ShowMusic" }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/music/{id}": {
+      "delete": {
+        "tags": ["Music"],
+        "summary": "Delete Song By Id",
+        "operationId": "delete_song_by_id_music__id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Id", "type": "integer" },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/msg": {
+      "get": {
+        "tags": ["Messages"],
+        "summary": "Get Messages",
+        "operationId": "get_messages_msg_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Messages Msg Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ShowMessages" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      },
+      "post": {
+        "tags": ["Messages"],
+        "summary": "Post Message",
+        "operationId": "post_message_msg_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MessagesBase" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/contacts/accepts": {
+      "post": {
+        "tags": ["Contacts"],
+        "summary": "Accept Contact",
+        "operationId": "accept_contact_contacts_accepts_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Id", "type": "integer" },
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/contacts/create": {
+      "post": {
+        "tags": ["Contacts"],
+        "summary": "Create Request",
+        "operationId": "create_request_contacts_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ContactRequestBase" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/contacts/req_list": {
+      "get": {
+        "tags": ["Contacts"],
+        "summary": "Request List",
+        "operationId": "request_list_contacts_req_list_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Request List Contacts Req List Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ShowContactRequest" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/contacts/contacts": {
+      "get": {
+        "tags": ["Contacts"],
+        "summary": "Contact List",
+        "operationId": "contact_list_contacts_contacts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Contact List Contacts Contacts Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ShowContacts" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/contacts/{id}": {
+      "delete": {
+        "tags": ["Contacts"],
+        "summary": "Decline Request",
+        "operationId": "decline_request_contacts__id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Id", "type": "integer" },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_add_new_song_music_add_song_post": {
+        "title": "Body_add_new_song_music_add_song_post",
+        "required": ["new_title", "new_artist", "new_genre", "file"],
+        "type": "object",
+        "properties": {
+          "new_title": { "title": "New Title", "type": "string" },
+          "new_artist": { "title": "New Artist", "type": "string" },
+          "new_genre": { "title": "New Genre", "type": "string" },
+          "new_featuring": { "title": "New Featuring", "type": "string" },
+          "file": { "title": "File", "type": "string", "format": "binary" }
+        }
+      },
+      "Body_login_login_post": {
+        "title": "Body_login_login_post",
+        "required": ["username", "password"],
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "title": "Grant Type",
+            "pattern": "password",
+            "type": "string"
+          },
+          "username": { "title": "Username", "type": "string" },
+          "password": { "title": "Password", "type": "string" },
+          "scope": { "title": "Scope", "type": "string", "default": "" },
+          "client_id": { "title": "Client Id", "type": "string" },
+          "client_secret": { "title": "Client Secret", "type": "string" }
+        }
+      },
+      "Body_post_uploaad_photo_user_upload_photo_post": {
+        "title": "Body_post_uploaad_photo_user_upload_photo_post",
+        "required": ["file"],
+        "type": "object",
+        "properties": {
+          "file": { "title": "File", "type": "string", "format": "binary" }
+        }
+      },
+      "ContactRequestBase": {
+        "title": "ContactRequestBase",
+        "required": ["user", "requested"],
+        "type": "object",
+        "properties": {
+          "user": { "title": "User", "type": "string" },
+          "requested": { "title": "Requested", "type": "string" }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ValidationError" }
+          }
+        }
+      },
+      "MessagesBase": {
+        "title": "MessagesBase",
+        "required": ["sender", "receiver", "text"],
+        "type": "object",
+        "properties": {
+          "sender": { "title": "Sender", "type": "string" },
+          "receiver": { "title": "Receiver", "type": "string" },
+          "text": { "title": "Text", "type": "string" }
+        }
+      },
+      "ShowContactRequest": {
+        "title": "ShowContactRequest",
+        "required": ["user", "requested"],
+        "type": "object",
+        "properties": {
+          "user": { "title": "User", "type": "string" },
+          "requested": { "title": "Requested", "type": "string" }
+        }
+      },
+      "ShowContacts": {
+        "title": "ShowContacts",
+        "required": ["user", "contact"],
+        "type": "object",
+        "properties": {
+          "user": { "title": "User", "type": "string" },
+          "contact": { "title": "Contact", "type": "string" }
+        }
+      },
+      "ShowMessages": {
+        "title": "ShowMessages",
+        "required": ["sender", "receiver", "text"],
+        "type": "object",
+        "properties": {
+          "sender": { "title": "Sender", "type": "string" },
+          "receiver": { "title": "Receiver", "type": "string" },
+          "text": { "title": "Text", "type": "string" }
+        }
+      },
+      "ShowMusic": {
+        "title": "ShowMusic",
+        "required": ["artist", "title", "featuring", "genre", "uploaded_by"],
+        "type": "object",
+        "properties": {
+          "artist": { "title": "Artist", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "featuring": { "title": "Featuring", "type": "string" },
+          "genre": { "title": "Genre", "type": "string" },
+          "uploaded_by": { "title": "Uploaded By", "type": "string" }
+        }
+      },
+      "ShowUser": {
+        "title": "ShowUser",
+        "required": ["firstname", "lastname", "username", "password"],
+        "type": "object",
+        "properties": {
+          "firstname": { "title": "Firstname", "type": "string" },
+          "lastname": { "title": "Lastname", "type": "string" },
+          "username": { "title": "Username", "type": "string" },
+          "password": { "title": "Password", "type": "string" }
+        }
+      },
+      "UserBase": {
+        "title": "UserBase",
+        "required": ["firstname", "lastname", "username", "password"],
+        "type": "object",
+        "properties": {
+          "firstname": { "title": "Firstname", "type": "string" },
+          "lastname": { "title": "Lastname", "type": "string" },
+          "username": { "title": "Username", "type": "string" },
+          "password": { "title": "Password", "type": "string" }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": ["loc", "msg", "type"],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "msg": { "title": "Message", "type": "string" },
+          "type": { "title": "Error Type", "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": { "password": { "scopes": {}, "tokenUrl": "login" } }
+      }
+    }
+  }
+}
