@@ -1,6 +1,6 @@
 {
   "openapi": "3.0.2",
-  "info": { "title": "FastAPI", "version": "0.2.0" },
+  "info": { "title": "FastAPI", "version": "0.1.0" },
   "paths": {
     "/login": {
       "post": {
@@ -91,6 +91,19 @@
                 "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
               }
             }
+          }
+        }
+      }
+    },
+    "/user/hello": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get Hello",
+        "operationId": "get_hello_user_hello_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
           }
         }
       }

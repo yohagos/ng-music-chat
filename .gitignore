@@ -47,5 +47,6 @@ testem.log
 Thumbs.db
 
 ## for now
-prox*
+proxy.conf*
+src/app/v1
 /src/app/core

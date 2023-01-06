@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MusicPlayerComponent } from './music-player/music-player.component';
 import { MusicComponent } from './music.component';
 import { SharedModule } from '../shared/shared.module';
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
     MusicPlayerComponent
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     SharedModule,
     RouterModule.forChild(routes)
   ]
