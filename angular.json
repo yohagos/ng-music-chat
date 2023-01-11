@@ -69,15 +69,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "ng-music-chat:build",
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-music-chat:build:production"
+              "browserTarget": "ng-music-chat:build:production",
+              "proxyConfig": "proxy.conf.js"
             },
             "development": {
               "browserTarget": "ng-music-chat:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "proxyConfig": "proxy.conf.js"
             }
           },
           "defaultConfiguration": "development"

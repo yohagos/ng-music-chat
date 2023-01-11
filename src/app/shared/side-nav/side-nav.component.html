@@ -6,5 +6,12 @@
 
 
 <button (click)="GetUserList()">Show User List</button>
+<br>
+<p *ngFor="let item of userList">{{item.username}}</p>
+<br>
+<button (click)="GetUserListReq()">GetUserListReq()</button>
+<br>
+<br>
+<button (click)="Auth()">Auth</button>
 
-{{userList}}
+
