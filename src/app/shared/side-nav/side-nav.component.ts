@@ -1,10 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { Navitem } from "../models/navitems";
-import { UsersService } from "../../core/api/v1/api/users.service";
-import { ShowUser } from "../../core/api/v1/model/showUser";
-import { AuthenticationService } from "../../core/api/v1/api/authentication.service";
 
 @Component({
   selector: 'app-side-nav',
@@ -16,29 +13,10 @@ export class SideNavComponent implements OnInit {
   @Input()
   items?: Navitem[];
 
-  userList?: ShowUser[];
-
-  username: string = '';
-  password: string = '';
-
-  constructor(private users: UsersService,
-              private http: HttpClient,
-              private auth: AuthenticationService) {  }
+  constructor(private http: HttpClient) {  }
 
   ngOnInit(): void {
 
-  }
-
-  public GetUserList() {
-    this.users.getAllUsersUsersGet().subscribe(
-      data => {
-        console.log(data);
-        this.userList = data;
-      },
-      error => {
-        console.error(error)
-      }
-    )
   }
 
   public GetUserListReq() {
@@ -52,8 +30,9 @@ export class SideNavComponent implements OnInit {
     )
   }
 
-  public Auth() {
-    this.auth.loginLoginPost(this.username, this.password).subscribe(
+  public login() {
+    let user = {username: 'admin', password: 'admin'}
+    this.http.post('http://localhost:8000/login', user).subscribe(
       data => {
         console.log(data)
       },
@@ -63,5 +42,4 @@ export class SideNavComponent implements OnInit {
     )
   }
 
-  
 }
