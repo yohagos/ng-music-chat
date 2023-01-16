@@ -48,5 +48,4 @@ Thumbs.db
 
 ## for now
 proxy.conf*
-src/app/v1
-/src/app/core
+.vscode
