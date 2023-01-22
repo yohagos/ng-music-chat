@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
               private api: ApiService, ) { }
 
   ngOnInit(): void {
-    
+
   }
 
   test_jwt() {
@@ -29,5 +29,6 @@ export class ProfileComponent implements OnInit {
       }
     )
   }
+
 
 }

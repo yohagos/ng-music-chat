@@ -1,4 +1,21 @@
+<form [formGroup]='createForm' (ngSubmit)="createUserRequest()">
+  <label>Firstname</label>
+  <input type="text" formControlName='firstname'><br>
+  <label>Lastname</label>
+  <input type="text" formControlName='lastname'><br>
+  <label>Username</label>
+  <input type="text" formControlName='username'><br>
+  <label>Password</label>
+  <input type="text" formControlName='password'><br>
+  <button type="submit">
+    create user
+  </button>
+</form>
 
+<br>
+<br>
+<br>
+<br>
   <form [formGroup]='form' (ngSubmit) = 'login()'>
       <label>Username</label>
       <input type = 'text' formControlName = 'username' /> <br>

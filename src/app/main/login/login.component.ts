@@ -2,9 +2,11 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
+import { LoginBase } from 'src/app/shared/models/login.model';
+import { UserBase } from 'src/app/shared/models/user.model';
 
 import { ApiService } from "../../services/api.service";
-import { AuthService } from "../../services/auth.service"
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,13 @@ export class LoginComponent implements OnInit {
     username: new FormControl('username'),
     password: new FormControl('password')
   });
+
+  createForm: FormGroup = new FormGroup({
+    firstname: new FormControl('firstname'),
+    lastname: new FormControl('lastname'),
+    username: new FormControl('username'),
+    password: new FormControl('password'),
+  })
 
   constructor(public fb: FormBuilder,
               private auth: AuthService,
@@ -34,12 +43,13 @@ export class LoginComponent implements OnInit {
 
   login(){
     let b = this.form.value;
-    console.log(b);
-    let body = new HttpParams()
-      .set('username', b.username)
-      .set('password', b.password)
+    let jsonData: LoginBase = {
+      'username': b.username,
+      'password': b.password
+    }
+    console.log(jsonData)
 
-    this.api.postRequest('login', body).subscribe(
+    this.api.postRequestLogin('login', jsonData).subscribe(
       (res: any) => {
         console.log(res);
         if (res.access_token) {
@@ -51,6 +61,27 @@ export class LoginComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  createUserRequest() {
+    //this.setCreateForm()
+    let newUser = this.createForm.value;
+    let jsonData: UserBase = {
+      'firstname': newUser.firstname,
+      'lastname': newUser.lastname,
+      'username': newUser.username,
+      'password': newUser.password
+    }
+    //let body = new HttpParams()
+
+    this.api.postRequest('user', jsonData).subscribe(
+      data => {
+        console.log(data)
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
 }

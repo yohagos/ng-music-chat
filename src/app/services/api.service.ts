@@ -13,6 +13,10 @@ export class ApiService {
     Authorization: "Bearer +token",
     "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
   })
+  private headersPost: HttpHeaders = new HttpHeaders({
+    Authorization: "Bearer +token",
+    "Content-Type": "application/json;charset=utf-8"
+  })
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +31,16 @@ export class ApiService {
   }
 
   postRequest(url: string, payload: any): Observable<any> {
+    return this.http.post(this.BACKEND+'/'+url, payload, {headers: this.headersPost}).pipe(
+      map(
+        res => {
+          return res
+        }
+      )
+    )
+  }
+
+  postRequestLogin(url: string, payload: any): Observable<any> {
     return this.http.post(this.BACKEND+'/'+url, payload, {headers: this.headers}).pipe(
       map(
         res => {
