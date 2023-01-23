@@ -16,15 +16,15 @@
 <br>
 <br>
 <br>
-  <form [formGroup]='form' (ngSubmit) = 'login()'>
-      <label>Username</label>
-      <input type = 'text' formControlName = 'username' /> <br>
-      <label>Password</label>
-      <input type = 'password' formControlName = 'password' />
-      <div>
-          <button type ='submit' [disabled] = '!this.form.value'>
-              Login
-          </button>
-      </div>
-  </form>
+<form [formGroup]='form' (ngSubmit)="login()">
+    <label>Username</label>
+    <input type='text' formControlName='username' /> <br>
+    <label>Password</label>
+    <input type='text' formControlName='password' />
+    <div>
+        <button type ='submit'>
+            Login
+        </button>
+    </div>
+</form>
 

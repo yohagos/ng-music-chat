@@ -2,7 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
-import { LoginBase } from 'src/app/shared/models/login.model';
+import { Login2Base, LoginBase } from 'src/app/shared/models/login.model';
 import { UserBase } from 'src/app/shared/models/user.model';
 
 import { ApiService } from "../../services/api.service";
@@ -30,26 +30,19 @@ export class LoginComponent implements OnInit {
   constructor(public fb: FormBuilder,
               private auth: AuthService,
               private api: ApiService,
-              private router: Router) {
+              private router: Router) { }
 
-  }
-
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      username: ['', Validators.required],
-      password:['', Validators.required]
-    });
-  }
+  ngOnInit(): void { }
 
   login(){
     let b = this.form.value;
-    let jsonData: LoginBase = {
-      'username': b.username,
+    let jsonData: Login2Base = {
+      'username': Object.toString() ,
       'password': b.password
     }
     console.log(jsonData)
 
-    this.api.postRequestLogin('login', jsonData).subscribe(
+    this.api.postRequest('login', jsonData).subscribe(
       (res: any) => {
         console.log(res);
         if (res.access_token) {
