@@ -7,12 +7,12 @@ export class AuthService {
 
   constructor() { }
 
-  getUserDetails() {
-    return localStorage.getItem('userInfo') //? JSON.parse(localStorage.getItem('userInfo')) : '';
+  getUserDetails(user: string) {
+    return localStorage.getItem(user) //? JSON.parse(localStorage.getItem('userInfo')) : '';
   }
 
-  setDataInLocalStorage(variableName: string, data: string) {
-      localStorage.setItem(variableName, data);
+  setDataInLocalStorage(user: string, data: string) {
+      localStorage.setItem(user, data);
   }
 
   getToken() {

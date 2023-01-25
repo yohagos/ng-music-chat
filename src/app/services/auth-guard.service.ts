@@ -17,9 +17,9 @@ export class AuthGuardService {
       return true;
     }
     // navigate to login page
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
     // you can save redirect url so after authing we can move them back to the page they requested
     return false;
   }
-  
+
 }

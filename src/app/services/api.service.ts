@@ -41,9 +41,7 @@ export class ApiService {
     )
   }
 
-  postRequestLogin(url: string, payload: LoginBase): Observable<any> {
-    console.log(url)
-    console.log(payload)
+  postRequestLogin(url: string, payload: any): Observable<any> {
     return this.http.post(this.BACKEND+'/'+url, payload, {headers: this.headers}).pipe(
       map(
         res => {

@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -15,38 +16,51 @@ import { AuthService } from "../../services/auth.service";
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup = new FormGroup({
-    username: new FormControl('username'),
-    password: new FormControl('password')
-  });
+  form!: FormGroup
 
   createForm: FormGroup = new FormGroup({
-    firstname: new FormControl('firstname'),
-    lastname: new FormControl('lastname'),
-    username: new FormControl('username'),
-    password: new FormControl('password'),
+    firstname: new FormControl(''),
+    lastname: new FormControl(''),
+    username: new FormControl(''),
+    password: new FormControl(''),
   })
+
+  userList: UserBase[] = [];
 
   constructor(public fb: FormBuilder,
               private auth: AuthService,
               private api: ApiService,
               private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit() {
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    })
+  }
 
   login(){
     let b = this.form.value;
-    let jsonData: Login2Base = {
-      'username': Object.toString() ,
+    let jsonData: LoginBase = {
+      'username': b.username ,
       'password': b.password
     }
-    console.log(jsonData)
 
-    this.api.postRequest('login', jsonData).subscribe(
+    let test = {
+      'username': b.username,
+      'password': b.password
+    }
+
+    let body = new HttpParams()
+    .set('username', b.username)
+    .set('password', b.password)
+
+    console.log(test)
+    this.api.postRequestLogin('login', body).subscribe(
       (res: any) => {
         console.log(res);
         if (res.access_token) {
-          this.auth.setDataInLocalStorage('token', res.access_token);
+          this.auth.setDataInLocalStorage(body.get('username') || '', res.access_token);
           this.router.navigate(['profile']);
         }
       },
@@ -65,14 +79,24 @@ export class LoginComponent implements OnInit {
       'username': newUser.username,
       'password': newUser.password
     }
-    //let body = new HttpParams()
-
+    /* let body = new HttpParams()
+      .set('username', newUser.username)
+      .set('password', newUser.password)
+    console.log(jsonData); */
     this.api.postRequest('user', jsonData).subscribe(
       data => {
         console.log(data)
       },
       error => {
         console.log(error)
+      }
+    )
+  }
+
+  users() {
+    this.api.getRequest('users').subscribe(
+      (data: UserBase[]) => {
+        this.userList = data;
       }
     )
   }

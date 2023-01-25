@@ -11,8 +11,6 @@
     create user
   </button>
 </form>
-
-<br>
 <br>
 <br>
 <br>
@@ -22,9 +20,16 @@
     <label>Password</label>
     <input type='text' formControlName='password' />
     <div>
-        <button type ='submit'>
+        <button type ='submit' [disabled]="!this.form.value">
             Login
         </button>
     </div>
 </form>
+<br>
+<br>
+<br>
+<button (click)="users()">UserList</button><br><button (click)="userList=[]">Clear</button>
 
+<div *ngIf="userList">
+  <p *ngFor="let item of userList">{{item.username}} & {{item.password}}</p>
+</div>

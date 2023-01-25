@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -12,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './main/login/login.component';
 import { ProfileComponent } from './main/profile/profile.component';
 
-import { AuthGuardService } from './services/auth-guard.service';
 import { InterceptosService } from './services/interceptos.service';
 
 
@@ -31,9 +29,7 @@ import { InterceptosService } from './services/interceptos.service';
     SharedModule,
     AppRoutingModule
   ],
-  exports: [
-    RouterModule
-  ],
+  exports: [],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -10,7 +10,7 @@ import { ApiService } from "../../services/api.service";
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  print!: string;
 
   constructor(private auth: AuthService,
               private api: ApiService, ) { }
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   }
 
   test_jwt() {
-    this.api.getRequest('music/all').subscribe(
+    this.api.getRequest('users').subscribe(
       data => {
         console.log(data)
       },
@@ -30,5 +30,17 @@ export class ProfileComponent implements OnInit {
     )
   }
 
+  printToken() {
+    console.log(this.auth.getToken())
+  }
 
+  logout() {
+    console.log('logout')
+    let token = this.auth?.getUserDetails('admin')
+    this.api.postRequest('logout', token).subscribe(
+      data => {
+        console.log(data)
+      }
+    )
+  }
 }
