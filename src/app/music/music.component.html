@@ -1,2 +1,24 @@
+<button (click)="logout()">Logout</button>
+
 <h2>Music Component</h2>
 
+<form [formGroup]='addSongForm' (ngSubmit)="addSong()">
+  <label>Artists</label>
+  <input type="text" formControlName="artist" required/><br>
+
+  <label>Title</label>
+  <input type="text" formControlName="title" required/><br>
+
+  <label>Feature</label>
+  <input type="text" formControlName="feature" /><br>
+
+  <label>Genre</label>
+  <input type="text" formControlName="genre" required/><br>
+
+  <label for="file">File</label>
+  <input type="file" formControlName="file" required/><br>
+
+  <button>
+    Add Song
+  </button>
+</form>

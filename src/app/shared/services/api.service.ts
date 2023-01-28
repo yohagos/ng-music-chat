@@ -68,6 +68,21 @@ export class ApiService {
     )
   }
 
+  postRequestWithToken(url: string, payload:any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.auth.getToken()}`
+    });
+    const requestOptions = {headers: headers}
+    return this.http.post(this.BACKEND + '/' + url, payload, requestOptions).pipe(
+      map(
+        res => {
+          return res
+        }
+      )
+    )
+  }
+
   putRequest(url: string, payload: string): Observable<any>{
     return this.http.post(this.BACKEND+'/'+url, payload).pipe(
       map(
