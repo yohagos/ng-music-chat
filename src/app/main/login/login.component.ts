@@ -7,9 +7,9 @@ import { Router } from "@angular/router";
 import { LoginBase } from 'src/app/shared/models/login.model';
 import { UserBase } from 'src/app/shared/models/user.model';
 import { MusicBase } from "src/app/shared/models/music.model";
+import { AuthService } from 'src/app/services/auth.service';
+import { ApiService } from 'src/app/services/api.service';
 
-import { ApiService } from "../../shared/services/api.service";
-import { AuthService } from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-login',

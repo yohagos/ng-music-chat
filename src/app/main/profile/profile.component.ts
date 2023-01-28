@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-import { AuthService } from "../../shared/services/auth.service";
-import { ApiService } from "../../shared/services/api.service";
+
 import { MusicBase } from 'src/app/shared/models/music.model';
 
 @Component({
@@ -18,7 +19,8 @@ export class ProfileComponent implements OnInit {
   addSong?: MusicBase;
 
   constructor(private auth: AuthService,
-              private api: ApiService, ) { }
+              private api: ApiService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -41,12 +43,8 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     console.log('logout')
-    /* let token = this.auth?.getUserDetails('admin')
-    this.api.postRequest('logout', token).subscribe(
-      data => {
-        console.log(data)
-      }
-    ) */
+    this.auth.clearStorage();
+    this.router.navigate(['/']);
   }
 
   musicAll() {
