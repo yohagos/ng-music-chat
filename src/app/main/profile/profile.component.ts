@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
-import { AuthService } from "../../services/auth.service";
-import { ApiService } from "../../services/api.service";
+import { AuthService } from "../../shared/services/auth.service";
+import { ApiService } from "../../shared/services/api.service";
+import { MusicBase } from 'src/app/shared/models/music.model';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,10 @@ import { ApiService } from "../../services/api.service";
 })
 export class ProfileComponent implements OnInit {
   print!: string;
+
+  musicList: MusicBase[] = [];
+
+  addSong?: MusicBase;
 
   constructor(private auth: AuthService,
               private api: ApiService, ) { }
@@ -36,10 +41,22 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     console.log('logout')
-    let token = this.auth?.getUserDetails('admin')
+    /* let token = this.auth?.getUserDetails('admin')
     this.api.postRequest('logout', token).subscribe(
       data => {
         console.log(data)
+      }
+    ) */
+  }
+
+  musicAll() {
+    this.api.getRequestWithToken('music/all').subscribe(
+      data => {
+        console.log(data)
+        this.musicList = data;
+      },
+      error => {
+        console.log(error);
       }
     )
   }

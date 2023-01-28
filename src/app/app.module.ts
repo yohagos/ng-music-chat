@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './main/login/login.component';
 import { ProfileComponent } from './main/profile/profile.component';
 
-import { InterceptosService } from './services/interceptos.service';
+import { InterceptosService } from './shared/services/interceptos.service';
 
 
 @NgModule({

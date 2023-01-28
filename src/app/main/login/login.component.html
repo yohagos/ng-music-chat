@@ -33,3 +33,10 @@
 <div *ngIf="userList">
   <p *ngFor="let item of userList">{{item.username}} & {{item.password}}</p>
 </div>
+<br><br><br>
+
+<button (click)="musicAll()">Music all</button><button (click)="musicList=[]">Clear</button>
+
+<div *ngIf="musicList">
+  <p *ngFor="let item of musicList">{{item.artist}} - {{item.title}}</p>
+</div>

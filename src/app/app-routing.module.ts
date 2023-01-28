@@ -5,16 +5,16 @@ import { LoginComponent } from './main/login/login.component';
 import { ProfileComponent } from './main/profile/profile.component';
 
 
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'signin',
     pathMatch: 'full'
   },
   {
-    path: 'login',
+    path: 'signin',
     component: LoginComponent
   },
   {

@@ -1,13 +1,15 @@
-import { map } from 'rxjs/operators';
+
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
-import { Login2Base, LoginBase } from 'src/app/shared/models/login.model';
-import { UserBase } from 'src/app/shared/models/user.model';
 
-import { ApiService } from "../../services/api.service";
-import { AuthService } from "../../services/auth.service";
+import { LoginBase } from 'src/app/shared/models/login.model';
+import { UserBase } from 'src/app/shared/models/user.model';
+import { MusicBase } from "src/app/shared/models/music.model";
+
+import { ApiService } from "../../shared/services/api.service";
+import { AuthService } from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -27,6 +29,8 @@ export class LoginComponent implements OnInit {
 
   userList: UserBase[] = [];
 
+  musicList: MusicBase[] = [];
+
   constructor(public fb: FormBuilder,
               private auth: AuthService,
               private api: ApiService,
@@ -41,26 +45,16 @@ export class LoginComponent implements OnInit {
 
   login(){
     let b = this.form.value;
-    let jsonData: LoginBase = {
-      'username': b.username ,
-      'password': b.password
-    }
-
-    let test = {
-      'username': b.username,
-      'password': b.password
-    }
 
     let body = new HttpParams()
     .set('username', b.username)
     .set('password', b.password)
 
-    console.log(test)
     this.api.postRequestLogin('login', body).subscribe(
       (res: any) => {
         console.log(res);
         if (res.access_token) {
-          this.auth.setDataInLocalStorage(body.get('username') || '', res.access_token);
+          this.auth.setDataInLocalStorage('token', res.access_token);
           this.router.navigate(['profile']);
         }
       },
@@ -71,7 +65,6 @@ export class LoginComponent implements OnInit {
   }
 
   createUserRequest() {
-    //this.setCreateForm()
     let newUser = this.createForm.value;
     let jsonData: UserBase = {
       'firstname': newUser.firstname,
@@ -79,10 +72,7 @@ export class LoginComponent implements OnInit {
       'username': newUser.username,
       'password': newUser.password
     }
-    /* let body = new HttpParams()
-      .set('username', newUser.username)
-      .set('password', newUser.password)
-    console.log(jsonData); */
+
     this.api.postRequest('user', jsonData).subscribe(
       data => {
         console.log(data)
@@ -97,6 +87,17 @@ export class LoginComponent implements OnInit {
     this.api.getRequest('users').subscribe(
       (data: UserBase[]) => {
         this.userList = data;
+      }
+    )
+  }
+
+  musicAll() {
+    this.api.getRequest('music/all').subscribe(
+      data => {
+        this.musicList = data;
+      },
+      error => {
+        console.log(error);
       }
     )
   }
