@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { ApiService } from 'src/app/services/api.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 
 import { MusicBase } from 'src/app/shared/models/music.model';
@@ -22,27 +22,13 @@ export class ProfileComponent implements OnInit {
               private api: ApiService,
               private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-  test_jwt() {
-    this.api.getRequest('users').subscribe(
-      data => {
-        console.log(data)
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }
-
-  printToken() {
-    console.log(this.auth.getToken())
+  toSongs() {
+    this.router.navigate(['/songs']);
   }
 
   logout() {
-    console.log('logout')
     this.auth.clearStorage();
     this.router.navigate(['/']);
   }
@@ -58,4 +44,6 @@ export class ProfileComponent implements OnInit {
       }
     )
   }
+
+
 }

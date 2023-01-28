@@ -8,7 +8,7 @@ import { HttpClientModule } from "@angular/common/http";
     SideNavComponent
   ],
   exports: [
-    SideNavComponent
+    SideNavComponent,
   ],
   imports: [
     CommonModule,

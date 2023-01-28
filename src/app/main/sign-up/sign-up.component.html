@@ -1,0 +1,21 @@
+<section>
+  <button (click)="backHome()">Home</button><button (click)="signIn()">SignIN</button>
+</section>
+
+<section>
+  <h1>Sign UP</h1>
+
+  <form [formGroup]='createForm' (ngSubmit)="createUserRequest()">
+    <label>Firstname</label>
+    <input type="text" formControlName='firstname'><br>
+    <label>Lastname</label>
+    <input type="text" formControlName='lastname'><br>
+    <label>Username</label>
+    <input type="text" formControlName='username'><br>
+    <label>Password</label>
+    <input type="text" formControlName='password'><br>
+    <button type="submit">
+      create user
+    </button>
+  </form>
+</section>

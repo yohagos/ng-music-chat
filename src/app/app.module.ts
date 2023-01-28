@@ -10,7 +10,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { LoginComponent } from './main/login/login.component';
 import { ProfileComponent } from './main/profile/profile.component';
-import { InterceptosService } from './services/interceptos.service';
+import { InterceptosService } from './shared/services/interceptos.service';
+import { HomeComponent } from './main/home/home.component';
+import { SignUpComponent } from './main/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { InterceptosService } from './services/interceptos.service';
     AppComponent,
     LoginComponent,
     ProfileComponent,
+    HomeComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,

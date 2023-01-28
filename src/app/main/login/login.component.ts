@@ -7,8 +7,8 @@ import { Router } from "@angular/router";
 import { LoginBase } from 'src/app/shared/models/login.model';
 import { UserBase } from 'src/app/shared/models/user.model';
 import { MusicBase } from "src/app/shared/models/music.model";
-import { AuthService } from 'src/app/services/auth.service';
-import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 
 @Component({
@@ -18,14 +18,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class LoginComponent implements OnInit {
 
-  form!: FormGroup
-
-  createForm: FormGroup = new FormGroup({
-    firstname: new FormControl(''),
-    lastname: new FormControl(''),
-    username: new FormControl(''),
-    password: new FormControl(''),
-  })
+  signInForm!: FormGroup
 
   userList: UserBase[] = [];
 
@@ -37,14 +30,22 @@ export class LoginComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.form = this.fb.group({
+    this.signInForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     })
   }
 
+  backHome() {
+    this.router.navigate(['/home']);
+  }
+
+  signUp() {
+    this.router.navigate(['/signup']);
+  }
+
   login(){
-    let b = this.form.value;
+    let b = this.signInForm.value;
 
     let body = new HttpParams()
     .set('username', b.username)
@@ -52,54 +53,12 @@ export class LoginComponent implements OnInit {
 
     this.api.postRequestLogin('login', body).subscribe(
       (res: any) => {
-        console.log(res);
         if (res.access_token) {
           this.auth.setDataInLocalStorage('token', res.access_token);
           this.router.navigate(['profile']);
         }
-      },
-      (error: any) => {
-        console.log(error);
       }
     );
-  }
-
-  createUserRequest() {
-    let newUser = this.createForm.value;
-    let jsonData: UserBase = {
-      'firstname': newUser.firstname,
-      'lastname': newUser.lastname,
-      'username': newUser.username,
-      'password': newUser.password
-    }
-
-    this.api.postRequest('user', jsonData).subscribe(
-      data => {
-        console.log(data)
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }
-
-  users() {
-    this.api.getRequest('users').subscribe(
-      (data: UserBase[]) => {
-        this.userList = data;
-      }
-    )
-  }
-
-  musicAll() {
-    this.api.getRequest('music/all').subscribe(
-      data => {
-        this.musicList = data;
-      },
-      error => {
-        console.log(error);
-      }
-    )
   }
 
 }
