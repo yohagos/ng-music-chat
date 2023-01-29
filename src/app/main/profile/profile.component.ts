@@ -14,7 +14,7 @@ import { MusicBase } from 'src/app/shared/models/music.model';
 export class ProfileComponent implements OnInit {
   print!: string;
 
-  musicList: MusicBase[] = [];
+  
 
   addSong?: MusicBase;
 
@@ -32,18 +32,5 @@ export class ProfileComponent implements OnInit {
     this.auth.clearStorage();
     this.router.navigate(['/']);
   }
-
-  musicAll() {
-    this.api.getRequestWithToken('music/all').subscribe(
-      data => {
-        console.log(data)
-        this.musicList = data;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-  }
-
 
 }

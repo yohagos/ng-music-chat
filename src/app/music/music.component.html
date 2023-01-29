@@ -22,3 +22,11 @@
     Add Song
   </button>
 </form>
+
+<section>
+  <button (click)="musicAll()">Music all</button><button (click)="musicList=[]">Clear</button>
+
+  <div *ngIf="musicList">
+    <p *ngFor="let item of musicList">{{item.artist}} - {{item.title}}</p>
+  </div>
+</section>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MusicBase } from '../shared/models/music.model';
 
 import { ApiService } from '../shared/services/api.service';
 import { AuthService } from '../shared/services/auth.service';
@@ -12,6 +13,8 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./music.component.css']
 })
 export class MusicComponent implements OnInit {
+
+  musicList: MusicBase[] = [];
 
   addSongForm: FormGroup = new FormGroup({
     artist: new FormControl(''),
@@ -48,6 +51,18 @@ export class MusicComponent implements OnInit {
         console.log(error)
       }
     );
+  }
+
+  musicAll() {
+    this.api.getRequestWithToken('music/all').subscribe(
+      data => {
+        console.log(data)
+        this.musicList = data;
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 }
