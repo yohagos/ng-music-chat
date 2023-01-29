@@ -82,11 +82,10 @@ export class ApiService {
     )
   }
 
-  postRequestMultipartWithToken(url: string, payload: FormData) {
-    console.log(payload)
+  postRequestMultipartWithToken(url: string, payload: any) {
     const headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryyEmKNDsBKjB7QEqu',
-      'Authorization': `Bearer ${this.auth.getToken()}`
+      'Authorization': `Bearer ${this.auth.getToken()}`,
+      'Content-Type': 'multipart/form-data',
     });
 
     return this.http.post(this.BACKEND + '/' + url, payload, { headers: headers}).pipe(
