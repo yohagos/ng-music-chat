@@ -1,6 +1,8 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormControlName, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ObjectUnsubscribedError } from 'rxjs';
 import { MusicBase } from '../shared/models/music.model';
 
 import { ApiService } from '../shared/services/api.service';
@@ -16,21 +18,22 @@ export class MusicComponent implements OnInit {
 
   musicList: MusicBase[] = [];
 
-  addSongForm: FormGroup = new FormGroup({
-    artist: new FormControl(''),
-    title: new FormControl(''),
-    feature: new FormControl(''),
-    genre: new FormControl(''),
-    file: new FormControl(''),
-    fileSource: new FormControl('')
-  })
+  addSongForm!: FormGroup
 
   constructor(private auth: AuthService,
               private api: ApiService,
               private router: Router,
               public fb: FormBuilder) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.addSongForm = this.fb.group({
+      new_artist: [''],
+      new_title: [''],
+      new_genre: [''],
+      new_feature: [''],
+      file: [''],
+    })
+  }
 
   logout() {
     this.auth.clearStorage()
@@ -38,12 +41,23 @@ export class MusicComponent implements OnInit {
   }
 
   addSong() {
-      console.log(this.addSongForm.value);
-    const formData = new FormData();
-    formData.append('file', this.addSongForm.get('file')?.value);
-      console.log(formData)
+    /* let form = this.addSongForm.value;
+    let body = new HttpParams()
+      .set('new_title', form.new_title)
+      .set('new_artist', form.new_artist)
+      .set('new_genre', form.new_genre)
+      .set('new_feature', form.new_feature)
+      .set('file', form.file) */
 
-    this.api.postRequestWithToken('music/add_song', formData).subscribe(
+    let formData = new FormData();
+    Object.keys(this.addSongForm.controls).forEach(
+      formControlName => {
+        formData.set(formControlName, this.addSongForm.get(formControlName)?.value)
+      })
+
+    console.log(formData)
+
+    this.api.postRequestMultipartWithToken('music/add_song', formData).subscribe(
       res => {
         alert(res);
       },

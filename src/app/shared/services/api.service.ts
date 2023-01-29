@@ -1,4 +1,3 @@
-import { LoginBase } from 'src/app/shared/models/login.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
@@ -73,8 +72,24 @@ export class ApiService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.auth.getToken()}`
     });
-    const requestOptions = {headers: headers}
-    return this.http.post(this.BACKEND + '/' + url, payload, requestOptions).pipe(
+
+    return this.http.post(this.BACKEND + '/' + url, payload, { headers: headers}).pipe(
+      map(
+        res => {
+          return res
+        }
+      )
+    )
+  }
+
+  postRequestMultipartWithToken(url: string, payload: FormData) {
+    console.log(payload)
+    const headers = new HttpHeaders({
+      'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryyEmKNDsBKjB7QEqu',
+      'Authorization': `Bearer ${this.auth.getToken()}`
+    });
+
+    return this.http.post(this.BACKEND + '/' + url, payload, { headers: headers}).pipe(
       map(
         res => {
           return res

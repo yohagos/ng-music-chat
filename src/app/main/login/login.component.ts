@@ -4,9 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
 
-import { LoginBase } from 'src/app/shared/models/login.model';
-import { UserBase } from 'src/app/shared/models/user.model';
-import { MusicBase } from "src/app/shared/models/music.model";
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ApiService } from 'src/app/shared/services/api.service';
 
@@ -19,10 +16,6 @@ import { ApiService } from 'src/app/shared/services/api.service';
 export class LoginComponent implements OnInit {
 
   signInForm!: FormGroup
-
-  userList: UserBase[] = [];
-
-  musicList: MusicBase[] = [];
 
   constructor(public fb: FormBuilder,
               private auth: AuthService,
@@ -46,7 +39,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     let b = this.signInForm.value;
-
+    
     let body = new HttpParams()
     .set('username', b.username)
     .set('password', b.password)

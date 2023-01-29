@@ -2,27 +2,6 @@
 
 <h2>Music Component</h2>
 
-<form [formGroup]='addSongForm' (ngSubmit)="addSong()">
-  <label>Artists</label>
-  <input type="text" formControlName="artist" required/><br>
-
-  <label>Title</label>
-  <input type="text" formControlName="title" required/><br>
-
-  <label>Feature</label>
-  <input type="text" formControlName="feature" /><br>
-
-  <label>Genre</label>
-  <input type="text" formControlName="genre" required/><br>
-
-  <label for="file">File</label>
-  <input type="file" formControlName="file" required/><br>
-
-  <button>
-    Add Song
-  </button>
-</form>
-
 <section>
   <button (click)="musicAll()">Music all</button><button (click)="musicList=[]">Clear</button>
 
@@ -30,3 +9,35 @@
     <p *ngFor="let item of musicList">{{item.artist}} - {{item.title}}</p>
   </div>
 </section>
+
+
+<form [formGroup]="addSongForm" enctype="multipart/form-data" (ngSubmit)="addSong()">
+  <div class="form-group">
+    <label for="new_artist">Artist:</label>
+    <input formControlName="new_artist" type="text">
+  </div>
+
+  <div class="form-group">
+    <label for="new_title">Title:</label>
+    <input formControlName="new_title" type="text">
+  </div>
+
+  <div class="form-group">
+    <label for="new_genre">Genre:</label>
+    <input formControlName="new_genre" type="text">
+  </div>
+
+  <div class="form-group">
+    <label for="new_feature">Feature:</label>
+    <input formControlName="new_feature" type="text">
+  </div>
+
+  <div class="form-group">
+    <label for="guide">Guide for the trip:</label>
+    <input formControlName="file" type="file" >
+  </div>
+
+  <div class="form-group">
+    <button>Upload file</button>
+  </div>
+</form>
