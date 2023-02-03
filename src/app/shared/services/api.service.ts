@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpEvent, HttpErrorResponse, HttpEventType, HttpRequest, HttpParams } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -15,7 +15,7 @@ export class ApiService {
               private auth: AuthService) { }
 
   getRequest(url: string): Observable<any> {
-    return this.http.get(this.BACKEND+'/'+url, ).pipe(
+    return this.http.get(this.BACKEND+'/'+url).pipe(
       map(
         res => {
           return res
@@ -28,7 +28,7 @@ export class ApiService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.auth.getToken()}`
-    })
+    });
     const requestOptions = {headers: headers}
     return this.http.get(this.BACKEND + '/' + url, requestOptions).pipe(
       map(
@@ -67,13 +67,50 @@ export class ApiService {
     )
   }
 
-  postRequestWithToken(url: string, payload:any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth.getToken()}`
-    });
+  postForm() {
+    let data = new FormData();
+    data.append('username', 'yosi')
+    data.append('password', 'yosi')
 
-    return this.http.post(this.BACKEND + '/' + url, payload, { headers: headers}).pipe(
+    let headers: HttpHeaders = new HttpHeaders({
+      Authorization: "Bearer +token",
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+
+    return this.http.post(`${this.BACKEND}/user/form`, data, {
+      headers: headers
+    }).subscribe(
+      data => {
+        console.log(data)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  postFiles(file: File): Observable<any> {
+    let headers: HttpHeaders = new HttpHeaders({
+      Authorization: "Bearer +token",
+      "Content-Type": "multipart/form-data"
+    })
+
+    let body = new HttpParams({})
+    body.set('file', file.name)
+
+    let fd: FormData = new FormData()
+    fd.append('file', file.name)
+
+    let param = new HttpParams({})
+    param.set('artist', 'me')
+    param.set('filepath', 'file.name')
+    param.set('filepath', file.name)
+
+    return this.http.post(`${this.BACKEND}/user/files`, param, {
+      reportProgress: true,
+      responseType: 'json',
+
+    }).pipe(
       map(
         res => {
           return res
@@ -82,10 +119,10 @@ export class ApiService {
     )
   }
 
-  postRequestMultipartWithToken(url: string, payload: any) {
+  postRequestWithToken(url: string, payload:any) {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.auth.getToken()}`,
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.auth.getToken()}`
     });
 
     return this.http.post(this.BACKEND + '/' + url, payload, { headers: headers}).pipe(
@@ -108,4 +145,3 @@ export class ApiService {
   }
 
 }
-

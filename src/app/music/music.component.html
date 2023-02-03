@@ -11,30 +11,30 @@
 </section>
 
 
-<form [formGroup]="addSongForm" enctype="multipart/form-data" (ngSubmit)="addSong()">
+<form [formGroup]="addSongForm" (ngSubmit)="addSong()">
   <div class="form-group">
-    <label for="new_artist">Artist:</label>
-    <input formControlName="new_artist" type="text">
+    <label for="artist">Artist:</label>
+    <input formControlName="artist" type="text">
   </div>
 
   <div class="form-group">
-    <label for="new_title">Title:</label>
-    <input formControlName="new_title" type="text">
+    <label for="title">Title:</label>
+    <input formControlName="title" type="text">
   </div>
 
   <div class="form-group">
-    <label for="new_genre">Genre:</label>
-    <input formControlName="new_genre" type="text">
+    <label for="genre">Genre:</label>
+    <input formControlName="genre" type="text">
   </div>
 
   <div class="form-group">
-    <label for="new_feature">Feature:</label>
-    <input formControlName="new_feature" type="text">
+    <label for="feature">Feature:</label>
+    <input formControlName="feature" type="text">
   </div>
 
   <div class="form-group">
-    <label for="guide">Guide for the trip:</label>
-    <input type="file" (change)="setFile($event)">
+    <label for="guide">File:</label>
+    <input type="file" #file accept=".mp3" (change)="setFile($event)">
   </div>
 
   <div class="form-group">
