@@ -1,7 +1,7 @@
 
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
 
   login(){
     let b = this.signInForm.value;
-    
     let body = new HttpParams()
     .set('username', b.username)
     .set('password', b.password)
