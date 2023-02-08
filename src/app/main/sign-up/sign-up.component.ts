@@ -11,6 +11,7 @@ import { UserBase } from 'src/app/shared/models/user.model';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+  check = false;
 
   createForm: FormGroup = new FormGroup({
     firstname: new FormControl(''),
@@ -33,6 +34,12 @@ export class SignUpComponent implements OnInit {
 
   signIn() {
     this.router.navigate(['/signin']);
+  }
+
+  password(event: Event) {
+    if (document.getElementById('p1') === document.getElementById('p2')) {
+      this.check = true;
+    }
   }
 
   createUserRequest() {

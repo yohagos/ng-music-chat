@@ -13,10 +13,10 @@
     <label>Username</label>
     <input type="text" formControlName='username'><br>
     <label>Password</label>
-    <input type="password" formControlName='password'><br>
-<!--     <label>Password enter again</label>
-    <input type="password" /> -->
-    <button type="submit">
+    <input type="password" id="p1" formControlName='password' (change)="password($event)"><br>
+    <label>Password enter again</label>
+    <input type="password" id="p2" (change)="password($event)"/>
+    <button type="submit" [disabled]="!check">
       create user
     </button>
   </form>
