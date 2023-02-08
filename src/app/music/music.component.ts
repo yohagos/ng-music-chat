@@ -57,55 +57,16 @@ export class MusicComponent implements OnInit {
   }
 
   addSong() {
-    let form = this.addSongForm.value;
+    let fd: FormData = new FormData();
+    fd.append('artist', this.addSongForm.get('artist')?.value)
+    fd.append('title', this.addSongForm.get('title')?.value)
+    fd.append('genre', this.addSongForm.get('genre')?.value)
+    fd.append('featuring', this.addSongForm.get('featuring')?.value)
+    fd.append('file', this.file, this.file?.name)
 
-    /* let body = new HttpParams({})
-      .append('title', 't')
-      .append('artist', 'a')
-      .append('genre', 'g')
-      .append('feature', 'f')
-      .append('file', '1_audioaufnahme.mp3') */
-
-    /* let body = new HttpParams({})
-      .append("title", "t")
-      .append("artist", "a")
-      .append("genre", "g")
-      .append("feature", "f")
-      .append("file", "1_audioaufnahme.mp3") */
-
-    let body = {
-      "title": "t",
-      "artist": "artist",
-      "genre": "g",
-      "feature": "f",
-      "file": this.file.name
-    }
-
-    this.addInfo(body)
-    this.addFile()
-  }
-
-  addInfo(params: any) {
-    this.api.postRequestWithToken('music/add_info', params).subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  async addFile() {
-    let data = new FormData()
-    data.set('file', this.file, this.file.name)
-
-    this.api.postRequestWithToken('music/add_song', data.get('file')).subscribe(
-      (res) => {
-        console.log(res);
-      },
-      error => {
-        console.log(error)
+    this.api.postAddSong(fd).subscribe(
+      data => {
+        console.log(data)
       }
     )
   }

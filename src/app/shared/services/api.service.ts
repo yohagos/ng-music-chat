@@ -67,11 +67,12 @@ export class ApiService {
     )
   }
 
-  postAddSong(body: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', body);
+  postAddSong(formData: FormData): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth.getToken()}`
+    });
 
-    return this.http.post(this.BACKEND+'/music/addSong', formData)
+    return this.http.post(this.BACKEND+'/music/add_song', formData, { headers: headers})
   }
 
   postRequestWithToken(url: string, payload:any) {
