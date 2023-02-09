@@ -4,3 +4,15 @@
 <button (click)="toSongs()">Songs</button>
 
 <h1>Profile</h1>
+
+<section>
+  <img *ngIf="!profilePhoto" class="profile-pic" src="../../../assets/images/my-profile-icon.jpg" alt="Profile Picture">
+  <mat-icon>create</mat-icon>
+</section>
+
+<section>
+  <button (click)="getProfilePhoto()">
+    load image
+  </button>
+</section>
+

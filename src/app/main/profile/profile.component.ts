@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-
-import { MusicBase } from 'src/app/shared/models/music.model';
 
 @Component({
   selector: 'app-profile',
@@ -12,14 +11,19 @@ import { MusicBase } from 'src/app/shared/models/music.model';
 })
 export class ProfileComponent implements OnInit {
 
+  profilePhoto!: File;
+
   constructor(
     private auth: AuthService,
+    private api: ApiService,
     private router: Router,
   ) {
 
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    //this.getProfilePhoto()
+  }
 
   toSongs() {
     this.router.navigate(['/songs']);
@@ -28,6 +32,19 @@ export class ProfileComponent implements OnInit {
   logout() {
     this.auth.clearStorage();
     this.router.navigate(['/']);
+  }
+
+  getProfilePhoto() {
+    console.log(this.auth.getToken())
+      this.api.getRequestWithToken('user/profilePhoto').subscribe(
+        data => {
+          //this.profilePhoto = data;
+          console.log(data)
+        },
+        error => {
+          console.log(error)
+        }
+      )
   }
 
 }

@@ -43,7 +43,6 @@ export class MusicComponent implements OnInit {
   musicAll() {
     this.api.getRequestWithToken('music/all').subscribe(
       (data) => {
-        console.log(data);
         this.musicList = data;
       },
       (error) => {

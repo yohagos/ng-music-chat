@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatIconModule } from "@angular/material/icon";
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -30,7 +31,8 @@ import { SignUpComponent } from './main/sign-up/sign-up.component';
     ReactiveFormsModule,
     MusicModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatIconModule
   ],
   exports: [],
   providers: [

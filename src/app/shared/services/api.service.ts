@@ -26,11 +26,9 @@ export class ApiService {
 
   getRequestWithToken(url: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.auth.getToken()}`
     });
-    const requestOptions = {headers: headers}
-    return this.http.get(this.BACKEND + '/' + url, requestOptions).pipe(
+    return this.http.get(this.BACKEND + '/' + url, {headers: headers}).pipe(
       map(
         res => {
           return res
