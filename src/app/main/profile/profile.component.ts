@@ -10,16 +10,13 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-
   profilePhoto!: File;
 
   constructor(
     private auth: AuthService,
     private api: ApiService,
-    private router: Router,
-  ) {
-
-  }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     //this.getProfilePhoto()
@@ -35,16 +32,14 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfilePhoto() {
-    console.log(this.auth.getToken())
-      this.api.getRequestWithToken('user/profilePhoto').subscribe(
-        data => {
-          //this.profilePhoto = data;
-          console.log(data)
-        },
-        error => {
-          console.log(error)
-        }
-      )
+    this.api.getRequestWithToken('user/photo').subscribe(
+      (data) => {
+        //this.profilePhoto = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-
 }
