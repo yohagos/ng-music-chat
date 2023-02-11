@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ApiService {
+  //sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
   private BACKEND = 'http://localhost:8000'
 
@@ -25,8 +26,9 @@ export class ApiService {
   }
 
   getRequestWithToken(url: string): Observable<any> {
-    let headers = new HttpHeaders({});
-    console.log(headers)
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth.getToken()}`
+    })
     return this.http.get(this.BACKEND + '/' + url, {headers: headers}).pipe(
       map(
         res => {
@@ -34,6 +36,12 @@ export class ApiService {
         }
       )
     );
+  }
+
+  getRequestWithTokenBlob(url: string) {
+    let path = this.BACKEND + '/' + url
+
+    return this.http.get<Blob>(path, {observe: 'response', responseType: 'blob' as 'json'})
   }
 
   postRequest(url: string, payload: any): Observable<any> {

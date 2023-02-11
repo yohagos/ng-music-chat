@@ -1,4 +1,8 @@
-<button (click)="logout()">Logout</button>
+<section>
+  <button (click)="logout()">Logout</button>
+  <button (click)="profile()">Profile</button>
+</section>
+
 
 <h2>Music Component</h2>
 
@@ -6,7 +10,7 @@
   <button (click)="musicAll()">Music all</button><button (click)="musicList=[]">Clear</button>
 
   <div *ngIf="musicList">
-    <p *ngFor="let item of musicList">{{item.artist}} - {{item.title}}</p>
+    <p *ngFor="let item of musicList">{{item.artist}} - {{item.title}} - {{item.uploaded_by}}</p>
   </div>
 </section>
 

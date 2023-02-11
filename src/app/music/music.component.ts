@@ -40,6 +40,10 @@ export class MusicComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  profile() {
+    this.router.navigate(['/profile'])
+  }
+
   musicAll() {
     this.api.getRequestWithToken('music/all').subscribe(
       (data) => {
