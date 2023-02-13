@@ -1,20 +1,18 @@
-<button (click)="logout()">Logout</button>
-<br>
+<section>
+  <button (click)="logout()">Logout</button>
+  <button (click)="toSongs()">Songs</button>
+</section>
 
-<button (click)="toSongs()">Songs</button>
-
-<h1>Profile</h1>
+<h1>Profile <div *ngIf="currentUser">{{currentUser.firstname}} {{currentUser.lastname}}</div></h1>
 
 <section>
-  <img *ngIf="!profilePhoto" class="profile-pic" src="../../../assets/images/my-profile-icon.jpg" alt="Profile Picture">
   <div *ngIf="profilePhoto">
     <img [src]="profilePhoto" alt="" class="profile-pic">
   </div>
-  <mat-icon>create</mat-icon>
+  <mat-icon id="modify">create</mat-icon>
 </section>
 
-<section>
-  <button (click)="getProfilePhoto()">
-    load image
-  </button>
-</section>
+
+
+
+

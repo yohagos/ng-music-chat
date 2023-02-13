@@ -14,6 +14,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class ProfileComponent implements OnInit {
   profilePhoto: string = '';
 
+  currentUser!: UserBase
+
   constructor(
     private auth: AuthService,
     private api: ApiService,
@@ -24,6 +26,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getProfilePhoto()
+    this.getCurrentUserInfo()
   }
 
   toSongs() {
@@ -37,7 +40,6 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfilePhoto() {
-
     this.api.getRequestWithTokenBlob('user/photo').subscribe(
       (response) => {
         let blob: Blob = response.body as Blob;
@@ -45,6 +47,14 @@ export class ProfileComponent implements OnInit {
         this.readFile(file)
       }
     );
+  }
+
+  getCurrentUserInfo() {
+    this.api.getRequestWithToken('user').subscribe(
+      data => {
+        this.currentUser = data
+      }
+    )
   }
 
   readFile(input: Blob) {
