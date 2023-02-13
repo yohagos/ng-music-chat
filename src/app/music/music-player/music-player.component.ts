@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MusicBase } from 'src/app/shared/models/music.model';
 
 @Component({
   selector: 'app-music-player',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./music-player.component.css']
 })
 export class MusicPlayerComponent implements OnInit {
+  @Input() musicList: MusicBase[] = [];
 
   constructor() { }
 
