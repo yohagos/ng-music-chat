@@ -33,6 +33,8 @@ export class MusicComponent implements OnInit {
       genre: [''],
       feature: [''],
     });
+
+    this.musicAll()
   }
 
   logout() {
@@ -44,13 +46,12 @@ export class MusicComponent implements OnInit {
     this.router.navigate(['/profile'])
   }
 
+
+
   musicAll() {
     this.api.getRequestWithToken('music/all').subscribe(
       (data) => {
         this.musicList = data;
-      },
-      (error) => {
-        console.log(error);
       }
     );
   }
