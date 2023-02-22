@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+
   profilePhoto: string = '';
 
   currentUser!: UserBase
@@ -21,13 +23,11 @@ export class ProfileComponent implements OnInit {
     private api: ApiService,
     private router: Router
   ) {
-
-  }
-
-  ngOnInit() {
     this.getProfilePhoto()
     this.getCurrentUserInfo()
   }
+
+  ngOnInit() {  }
 
   toSongs() {
     this.router.navigate(['/songs']);

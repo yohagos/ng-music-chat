@@ -1,6 +1,7 @@
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserBase } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  users: UserBase[] = []
 
   constructor(private router: Router,
               private api: ApiService) { }
@@ -21,6 +23,18 @@ export class HomeComponent implements OnInit {
 
   signUp() {
     this.router.navigate(['/signup']);
+  }
+
+  getUsers() {
+    this.api.getRequest('users').subscribe(
+      data => {
+        this.users = data
+      }
+    )
+  }
+
+  clear() {
+    this.users = []
   }
 
 }

@@ -6,13 +6,14 @@
 
 <h2>Music Component</h2>
 
-<!-- <section>
-  <button (click)="musicAll()">Music all</button><button (click)="musicList=[]">Clear</button>
+<section>
+  <button (click)="musicAll()">Music all</button>
+  <button (click)="musicList=[]">Clear</button>
 
   <div *ngIf="musicList">
     <p *ngFor="let item of musicList">{{item.artist}} - {{item.title}} - {{item.uploaded_by}}</p>
   </div>
-</section> -->
+</section>
 
 <form [formGroup]="addSongForm" (ngSubmit)="addSong()">
   <div class="form-group">
@@ -46,9 +47,7 @@
 </form>
 
 <section *ngIf="musicList">
-  <app-music-player>
-    
-  </app-music-player>
+  <app-music-player [songs]="musicList"></app-music-player>
 </section>
 
 

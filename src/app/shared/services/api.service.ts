@@ -8,7 +8,6 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ApiService {
-  //sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
   private BACKEND = 'http://localhost:8000'
 

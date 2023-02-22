@@ -9,4 +9,11 @@
   <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos, sed perspiciatis! Minima quidem dolor adipisci sit numquam. Neque, tempora dolor eligendi a rem molestias quo! Eos tempora facilis nesciunt sapiente?</p>
 </section>
 
+<section>
+  <button (click)="getUsers()">Users</button>
+  <button (click)="clear()">Clear</button>
 
+  <div *ngIf="users">
+    <p *ngFor="let item of users">{{item.username}}</p>
+  </div>
+</section>
