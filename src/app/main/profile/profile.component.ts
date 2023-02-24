@@ -43,10 +43,14 @@ export class ProfileComponent implements OnInit {
 
   getProfilePhoto() {
     this.api.getRequestWithTokenBlob('user/photo').subscribe(
-      (response) => {
+      async (response) => {
         let blob: Blob = response.body as Blob;
         let file = new File([blob], 'profile.jpg', {type: blob.type, lastModified: 0})
-        this.profilePhoto = this.fr.readFile(file)
+        this.fr.readFile(file).then(
+          value => {
+            this.profilePhoto = value
+          }
+        )
       }
     );
   }

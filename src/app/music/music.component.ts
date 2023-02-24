@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 
-import { MusicBase } from '../shared/models/music.model';
+import { Music, MusicBase } from '../shared/models/music.model';
 import { ApiService } from '../shared/services/api.service';
 import { AuthService } from '../shared/services/auth.service';
+import { FunctionsService } from '../shared/services/functions.service';
 
 @Component({
   selector: 'app-music',
@@ -19,11 +20,14 @@ export class MusicComponent implements OnInit {
 
   file!: File
 
+  url: string = ''
+
   constructor(
     private auth: AuthService,
     private api: ApiService,
     private router: Router,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private fr: FunctionsService
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +75,34 @@ export class MusicComponent implements OnInit {
     )
   }
 
-  openMusicPlayer() {
-    this.router.navigate(['/player'])
+  playSong(id: number, song: MusicBase) {
+    this.api.getRequestWithTokenBlob(`music/song/${id}`).subscribe(
+      async (response) => {
+        let blob: Blob = response.body as Blob
+        let file = new File([blob], song.title, { type: blob.type, lastModified: 0 })
+        await this.fr.readFile(file).then(
+          value => {
+            this.url = value
+          }
+        )
+
+        this.openMusicPlayer(this.url, song)
+      }
+    )
+  }
+
+  openMusicPlayer(url?: string, song?: MusicBase) {
+    this.router.navigate(['/player'], {
+      queryParams: {
+        url: url,
+        artist: song?.artist,
+        title: song?.title,
+        feat: song?.featuring,
+        genre: song?.genre,
+        id: song?.id,
+        path: song?.path,
+        uploaded: song?.uploaded_by
+      }
+    })
   }
 }

@@ -11,7 +11,9 @@
   <button (click)="musicList=[]">Clear</button>
 
   <div *ngIf="musicList">
-    <p *ngFor="let item of musicList">{{item.id}}  {{item.artist}} - {{item.title}} - {{item.uploaded_by}}</p>
+    <div *ngFor="let item of musicList">
+      <button (click)="playSong(item.id, item)">{{item.id}}</button> <p>- {{item.artist}} - {{item.title}} - {{item.uploaded_by}}</p>
+    </div>
   </div>
 </section>
 
@@ -46,8 +48,8 @@
   </div>
 </form>
 
-<section *ngIf="musicList">
+<!-- <section *ngIf="musicList">
   <button (click)="openMusicPlayer()">Music Player</button>
-</section>
+</section> -->
 
 

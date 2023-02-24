@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { MusicBase, Music } from 'src/app/shared/models/music.model';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -13,7 +13,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
   styleUrls: ['./music-player.component.css'],
 })
 export class MusicPlayerComponent implements OnInit {
-  @Input() songs: MusicBase[] = [];
+  songs: MusicBase[] = [];
 
   musicList: Music[] = [];
 
@@ -27,6 +27,7 @@ export class MusicPlayerComponent implements OnInit {
   constructor(
       public router: Router,
       private api: ApiService,
+      private activeRoute: ActivatedRoute
     ) {
     this.audio.ondurationchange = () => {
       const totalSeconds = Math.floor(this.audio.duration),
@@ -52,10 +53,28 @@ export class MusicPlayerComponent implements OnInit {
           : `${Math.floor(duration.asMinutes())}:
                           ${duration.seconds()}`;
     };
+
+
   }
 
   ngOnInit(): void {
-
+    this.activeRoute.queryParams.subscribe(
+      data => {
+        this.music = {
+          url: data['url'] || '',
+          base: {
+            artist: data['artist'] || '',
+            featuring: data['feat'] || '',
+            genre: data['genre'] || '',
+            id: Number(data['id']) || 0,
+            path: data['path'] || '',
+            title: data['title'] || '',
+            uploaded_by: data['uploaded'] || ''
+          }
+        }
+        this.musicList.push(this.music)
+      }
+    )
   }
 
   displayedColumns: string[] = ['title', 'artist', 'album'];

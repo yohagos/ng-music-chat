@@ -4,18 +4,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class FunctionsService {
+  sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+  value = ''
 
   constructor() { }
 
-  readFile(input: Blob): string {
+  async readFile(input: Blob): Promise<string> {
     const fr = new FileReader()
     fr.readAsDataURL(input)
-    let val = ''
 
-    fr.addEventListener('load', ()=> {
-      const res = fr.result
-      val = res?.toString() || ''
+    return new Promise((resolve, reject) => {
+      fr.addEventListener('load', () => {
+        this.sleep(30)
+        return resolve(fr.result?.toString() || '');
+      })
     })
-    return val
   }
 }
