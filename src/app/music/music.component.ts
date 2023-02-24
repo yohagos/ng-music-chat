@@ -33,8 +33,6 @@ export class MusicComponent implements OnInit {
       genre: [''],
       feature: [''],
     });
-
-    this.musicAll()
   }
 
   logout() {
@@ -71,5 +69,9 @@ export class MusicComponent implements OnInit {
         console.log(data)
       }
     )
+  }
+
+  openMusicPlayer() {
+    this.router.navigate(['/player'])
   }
 }

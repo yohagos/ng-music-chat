@@ -1,15 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { Router } from "@angular/router";
 
-import { MusicBase } from 'src/app/shared/models/music.model';
+import { MusicBase, Music } from 'src/app/shared/models/music.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 
-export interface Music {
-  base: MusicBase,
-  url: string
-}
 
 @Component({
   selector: 'app-music-player',
@@ -19,14 +15,19 @@ export interface Music {
 export class MusicPlayerComponent implements OnInit {
   @Input() songs: MusicBase[] = [];
 
-  //@Input() musicList: Music[] = [];
+  musicList: Music[] = [];
+
+  music!: Music;
 
   audio = new Audio();
   musicLength: string = '0:00';
   duration: number = 1;
   currentTime: string = '0:00';
 
-  constructor() {
+  constructor(
+      public router: Router,
+      private api: ApiService,
+    ) {
     this.audio.ondurationchange = () => {
       const totalSeconds = Math.floor(this.audio.duration),
         duration = moment.duration(totalSeconds, 'seconds');
@@ -53,7 +54,9 @@ export class MusicPlayerComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   displayedColumns: string[] = ['title', 'artist', 'album'];
   trackPointer: number = 0;
@@ -64,7 +67,8 @@ export class MusicPlayerComponent implements OnInit {
       genre: '',
       featuring: '',
       path: '',
-      uploaded_by: ''
+      uploaded_by: '',
+      id: 0
     },
     url: ''
   }
@@ -109,6 +113,10 @@ export class MusicPlayerComponent implements OnInit {
 
   durationSlider(event: any) {
     this.audio.currentTime = event.value;
+  }
+
+  navigateToSongs() {
+    this.router.navigate(['/songs'])
   }
 
   /* getAllMusic(): Observable<Music[]> {

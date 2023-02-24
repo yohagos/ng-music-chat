@@ -5,6 +5,7 @@ import { UserBase } from 'src/app/shared/models/user.model';
 
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { FunctionsService } from 'src/app/shared/services/functions.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private fr: FunctionsService
   ) {
     this.getProfilePhoto()
     this.getCurrentUserInfo()
@@ -44,7 +46,7 @@ export class ProfileComponent implements OnInit {
       (response) => {
         let blob: Blob = response.body as Blob;
         let file = new File([blob], 'profile.jpg', {type: blob.type, lastModified: 0})
-        this.readFile(file)
+        this.profilePhoto = this.fr.readFile(file)
       }
     );
   }
@@ -55,16 +57,6 @@ export class ProfileComponent implements OnInit {
         this.currentUser = data
       }
     )
-  }
-
-  readFile(input: Blob) {
-    const fr = new FileReader()
-    fr.readAsDataURL(input)
-
-    fr.addEventListener('load', ()=> {
-      const res = fr.result
-      this.profilePhoto = res?.toString() || ''
-    })
   }
 
 }

@@ -6,6 +6,8 @@ import { LoginComponent } from './main/login/login.component';
 import { ProfileComponent } from './main/profile/profile.component';
 import { SignUpComponent } from './main/sign-up/sign-up.component';
 import { MusicComponent } from './music/music.component';
+import { MusicPlayerComponent } from "./music/music-player/music-player.component";
+
 import { AuthGuardService } from './shared/services/auth-guard.service';
 
 
@@ -35,6 +37,11 @@ const routes: Routes = [
   {
     path: 'songs',
     component: MusicComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'player',
+    component: MusicPlayerComponent,
     canActivate: [AuthGuardService]
   }
 ];

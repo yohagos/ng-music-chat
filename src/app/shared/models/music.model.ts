@@ -5,6 +5,7 @@ export class MusicBase {
   genre!: string;
   path!: string;
   uploaded_by!: string;
+  id!: number;
 }
 
 export class MusicUpload {
@@ -12,4 +13,9 @@ export class MusicUpload {
   featuring!: string;
   title!: string;
   genre!: string;
+}
+
+export interface Music {
+  base: MusicBase,
+  url: string
 }
