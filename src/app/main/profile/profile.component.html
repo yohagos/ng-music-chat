@@ -8,9 +8,13 @@
 
 <section>
   <div *ngIf="profilePhoto">
-    <img [src]="profilePhoto" alt="" class="profile-pic">
+    <img [src]="profilePhoto" alt="profile photo" class="profile-pic">
   </div>
-  <mat-icon id="modify">create</mat-icon>
+
+  <button type="button" (click)="fileInput.click()">
+    <span>Upload</span>
+    <input #fileInput type="file" (change)="onFileInput($event)" style="display: none;"/>
+  </button>
 </section>
 
 

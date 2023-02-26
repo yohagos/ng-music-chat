@@ -70,4 +70,21 @@ export class ProfileComponent implements OnInit {
     )
   }
 
+  onFileInput(event: any) {
+    console.log(event.target.files[0])
+    let photo: File = event.target.files[0]
+    let fd: FormData = new FormData()
+    fd.append('file', photo, photo.name)
+
+    this.api.postUploadFile('user/upload_photo', fd).subscribe(
+      data => {
+        console.log(data)
+      }
+    )
+
+    if (!this.profilePhoto) {
+      this.getProfilePhoto()
+    }
+  }
+
 }

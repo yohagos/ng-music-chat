@@ -70,7 +70,7 @@ export class MusicComponent implements OnInit {
     fd.append('featuring', this.addSongForm.get('featuring')?.value)
     fd.append('file', this.file, this.file?.name)
 
-    this.api.postAddSong(fd).subscribe(
+    this.api.postUploadFile('music/add_song',fd).subscribe(
       data => {
         console.log(data)
       }
