@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 import { UserBase } from 'src/app/shared/models/user.model';
 
@@ -18,6 +19,8 @@ export class ProfileComponent implements OnInit {
   profilePhoto!: string;
 
   currentUser!: UserBase
+
+  errorMessage = ''
 
   constructor(
     private auth: AuthService,
@@ -42,17 +45,21 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfilePhoto() {
-    this.api.getRequestWithTokenBlob('user/photo').subscribe(
-      async (response) => {
-        let blob: Blob = response.body as Blob;
-        let file = new File([blob], 'profile.jpg', {type: blob.type, lastModified: 0})
-        this.fr.readFile(file).then(
-          value => {
-            this.profilePhoto = value
-          }
-        )
-      }
-    );
+      this.api.getRequestWithTokenBlob('user/photo').subscribe({
+        next: async (response) => {
+          let blob: Blob = response.body as Blob;
+          let file = new File([blob], 'profile.jpg', {type: blob.type, lastModified: 0})
+          await this.fr.readFile(file).then(
+            value => {
+              this.profilePhoto = value
+            }
+          )
+        },
+        error(err) {
+            catchError(err => of(Error))
+        },
+    })
+
   }
 
   getCurrentUserInfo() {

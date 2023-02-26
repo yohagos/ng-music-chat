@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpHandler, HttpRequest, HttpEvent } from "@angular/common/http";
 import { Observable} from "rxjs";
-import { Router } from "@angular/router";
+import { NavigationEnd, NavigationStart, Router } from "@angular/router";
+import jwt_decode from "jwt-decode";
+
 import { AuthService } from './auth.service';
 
+
+export interface Expiration {
+  sub: string
+  exp: number
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +18,15 @@ import { AuthService } from './auth.service';
 export class InterceptosService {
 
   constructor(private router: Router,
-              private auth: AuthService) { }
+              private auth: AuthService) {
+                router.events.subscribe(
+                  event => {
+                    if (event instanceof NavigationEnd) {
+                      this.checkTokenExpiration()
+                    }
+                  }
+                )
+              }
 
   intercept(
     request: HttpRequest<any>,
@@ -23,6 +38,19 @@ export class InterceptosService {
       }
     })
     return next.handle(request)
+  }
+
+  checkTokenExpiration() {
+    const token = this.auth.getToken()
+    if (!token) {
+      this.router.navigate(['/signin'])
+      return
+    }
+    const decode: Expiration = jwt_decode(token)
+    const now = Date.now() / 1000
+    if (decode.exp < now) {
+      this.router.navigate(['/signin'])
+    }
   }
 
 }
