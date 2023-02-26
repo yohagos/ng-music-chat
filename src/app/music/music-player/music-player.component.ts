@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { Event, NavigationStart, Router } from "@angular/router";
 
 import { MusicBase, Music } from 'src/app/shared/models/music.model';
+
 import { PlayerService } from 'src/app/shared/services/player.service';
 
 
@@ -12,7 +13,6 @@ import { PlayerService } from 'src/app/shared/services/player.service';
   styleUrls: ['./music-player.component.css'],
 })
 export class MusicPlayerComponent implements OnInit, OnChanges {
-  songs: MusicBase[] = [];
 
   musicList: Music[] = [];
 

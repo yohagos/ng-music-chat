@@ -10,6 +10,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatSliderModule } from "@angular/material/slider";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserModule } from "@angular/platform-browser";
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { MatSliderModule } from "@angular/material/slider";
     MusicPlayerComponent
   ],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     SharedModule,
     FormsModule,

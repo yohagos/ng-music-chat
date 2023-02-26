@@ -11,9 +11,9 @@
   <button (click)="musicList=[]">Clear</button>
 
   <div *ngIf="musicList">
-    <button (click)="playAllSongs()">Play All</button>
+    <button (click)="playAllSongs()">Play All</button><br><br>
     <div *ngFor="let item of musicList">
-      <button (click)="playSong(item.id, item)">{{item.id}}</button> <p>- {{item.artist}} - {{item.title}} - {{item.uploaded_by}}</p>
+      <button class="btn-display" (click)="playSong(item.id, item)">{{item.id}} - {{item.artist}} - {{item.title}} - {{item.uploaded_by}}</button>
     </div>
   </div>
 </section>
