@@ -15,7 +15,7 @@ import { FunctionsService } from 'src/app/shared/services/functions.service';
 export class ProfileComponent implements OnInit {
   sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-  profilePhoto: string = '';
+  profilePhoto!: string;
 
   currentUser!: UserBase
 

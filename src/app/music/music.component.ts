@@ -7,6 +7,7 @@ import { Music, MusicBase } from '../shared/models/music.model';
 import { ApiService } from '../shared/services/api.service';
 import { AuthService } from '../shared/services/auth.service';
 import { FunctionsService } from '../shared/services/functions.service';
+import { PlayerService } from '../shared/services/player.service';
 
 @Component({
   selector: 'app-music',
@@ -27,7 +28,8 @@ export class MusicComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     public fb: FormBuilder,
-    private fr: FunctionsService
+    private fr: FunctionsService,
+    private player: PlayerService
   ) {}
 
   ngOnInit(): void {
@@ -91,18 +93,45 @@ export class MusicComponent implements OnInit {
     )
   }
 
+  playAllSongs() {
+    let playlist: Music[] = [];
+    this.musicList.forEach(element => {
+      this.api.getRequestWithTokenBlob(`music/song/${element.id}`).subscribe(
+        async (response) => {
+          let blob = response.body as Blob
+          let file = new File([blob], element.title, { type: blob.type })
+          await this.fr.readFile(file).then(
+            value => {
+              playlist.push(
+                {
+                  base: element,
+                  url: value
+                }
+              )
+            }
+          )
+        }
+      )
+    });
+    this.player.setMultipleSongs(playlist)
+    this.router.navigate(['/player'])
+  }
+
   openMusicPlayer(url?: string, song?: MusicBase) {
-    this.router.navigate(['/player'], {
-      queryParams: {
-        url: url,
-        artist: song?.artist,
-        title: song?.title,
-        feat: song?.featuring,
-        genre: song?.genre,
-        id: song?.id,
-        path: song?.path,
-        uploaded: song?.uploaded_by
+    this.player.setSingleSong(
+      {
+        base: {
+          artist: song?.artist || '',
+          featuring: song?.featuring || '',
+          genre: song?.genre || '',
+          id: song?.id || 0,
+          path: song?.path || '',
+          title: song?.title || '',
+          uploaded_by: song?.uploaded_by || '',
+        },
+        url:  url?.toString() || ''
       }
-    })
+    )
+    this.router.navigate(['/player'])
   }
 }

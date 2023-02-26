@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Event, NavigationStart, Router } from "@angular/router";
 
 import { MusicBase, Music } from 'src/app/shared/models/music.model';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { PlayerService } from 'src/app/shared/services/player.service';
 
 
 @Component({
@@ -12,7 +11,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
   templateUrl: './music-player.component.html',
   styleUrls: ['./music-player.component.css'],
 })
-export class MusicPlayerComponent implements OnInit {
+export class MusicPlayerComponent implements OnInit, OnChanges {
   songs: MusicBase[] = [];
 
   musicList: Music[] = [];
@@ -26,8 +25,7 @@ export class MusicPlayerComponent implements OnInit {
 
   constructor(
       public router: Router,
-      private api: ApiService,
-      private activeRoute: ActivatedRoute
+      private player: PlayerService
     ) {
     this.audio.ondurationchange = () => {
       const totalSeconds = Math.floor(this.audio.duration),
@@ -54,25 +52,23 @@ export class MusicPlayerComponent implements OnInit {
                           ${duration.seconds()}`;
     };
 
-
+    if (this.player.playlist) {
+      this.musicList = this.player.getMultipleSongs()
+    } else {
+      this.musicList.push(this.player.getSingleSong())
+    }
   }
 
   ngOnInit(): void {
-    this.activeRoute.queryParams.subscribe(
-      data => {
-        this.music = {
-          url: data['url'] || '',
-          base: {
-            artist: data['artist'] || '',
-            featuring: data['feat'] || '',
-            genre: data['genre'] || '',
-            id: Number(data['id']) || 0,
-            path: data['path'] || '',
-            title: data['title'] || '',
-            uploaded_by: data['uploaded'] || ''
-          }
+
+  }
+
+  ngOnChanges() {
+    this.router.events.subscribe(
+      (event: Event) => {
+        if (event instanceof NavigationStart) {
+          this.player.clear()
         }
-        this.musicList.push(this.music)
       }
     )
   }
@@ -137,12 +133,5 @@ export class MusicPlayerComponent implements OnInit {
   navigateToSongs() {
     this.router.navigate(['/songs'])
   }
-
-  /* getAllMusic(): Observable<Music[]> {
-    return this.store
-      .collection('music',
-      ref => ref.orderBy('title'))
-      .valueChanges({ idField: 'id' }).pipe() as Observable<Music[]>;
-  } */
 
 }

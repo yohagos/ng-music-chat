@@ -14,11 +14,13 @@ export class FunctionsService {
     const fr = new FileReader()
     fr.readAsDataURL(input)
 
-    return new Promise((resolve, reject) => {
-      fr.addEventListener('load', () => {
-        this.sleep(30)
-        return resolve(fr.result?.toString() || '');
-      })
-    })
+    return new Promise(
+      (resolve) => {
+        fr.addEventListener('load', () => {
+          this.sleep(40)
+          return resolve(fr.result?.toString() || '');
+        })
+      }
+    )
   }
 }
