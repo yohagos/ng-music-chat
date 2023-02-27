@@ -14,7 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { MusicModule } from './music/music.module';
 import { AppRoutingModule } from './app-routing.module';
 
-import { LoginComponent } from './main/login/login.component';
+import { SignInComponent } from './main/sign-in/sign-in.component';
 import { ProfileComponent } from './main/profile/profile.component';
 import { InterceptosService } from './shared/services/interceptos.service';
 import { HomeComponent } from './main/home/home.component';
@@ -25,7 +25,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    SignInComponent,
     ProfileComponent,
     HomeComponent,
     SignUpComponent,
