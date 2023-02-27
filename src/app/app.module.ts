@@ -19,6 +19,7 @@ import { ProfileComponent } from './main/profile/profile.component';
 import { InterceptosService } from './shared/services/interceptos.service';
 import { HomeComponent } from './main/home/home.component';
 import { SignUpComponent } from './main/sign-up/sign-up.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SignUpComponent } from './main/sign-up/sign-up.component';
     ProfileComponent,
     HomeComponent,
     SignUpComponent,
+    ContactsComponent,
   ],
   imports: [
     BrowserModule,

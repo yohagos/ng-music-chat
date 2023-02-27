@@ -38,6 +38,10 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/songs']);
   }
 
+  toContacts() {
+    this.router.navigate(['/contact'])
+  }
+
   logout() {
     this.auth.clearStorage();
     this.profilePhoto = '';

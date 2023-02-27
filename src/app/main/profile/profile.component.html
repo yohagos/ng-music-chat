@@ -1,6 +1,7 @@
 <section>
   <button (click)="logout()">Logout</button>
   <button (click)="toSongs()">Songs</button>
+  <button (click)="toContacts()">Contacts</button>
 </section>
 
 <h1>Profile <div *ngIf="currentUser">{{currentUser.firstname}} {{currentUser.lastname}}</div></h1>
