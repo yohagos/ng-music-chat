@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Contacts, ContactsReq } from '../shared/models/contacts.model';
 import { UserFull } from '../shared/models/user.model';
 import { ApiService } from '../shared/services/api.service';
-import { FunctionsService } from '../shared/services/functions.service';
+import { AuthService } from '../shared/services/auth.service';
+import { InterceptosService } from '../shared/services/interceptos.service';
 
 @Component({
   selector: 'app-contacts',
@@ -13,16 +15,17 @@ import { FunctionsService } from '../shared/services/functions.service';
 export class ContactsComponent implements OnInit {
   users: UserFull[] = []
 
-  reqList: ContactsReq[] = []
+  reqList!: ContactsReq[]
 
   contacts: Contacts[] = []
 
   showContacts = false;
 
+
   constructor(private router: Router,
               private api: ApiService,
-              private fs: FunctionsService) {
-                this.getUserList()
+              private auth: AuthService,
+              private ic: InterceptosService) {
                 this.loadReqList()
                 this.loadContacts()
               }
@@ -35,15 +38,8 @@ export class ContactsComponent implements OnInit {
   }
 
   logout() {
-    this.fs.logout()
-  }
-
-  getUserList() {
-    this.api.getRequest('users').subscribe(
-      data => {
-        this.users = data
-      }
-    )
+    this.auth.clearStorage();
+    this.router.navigate(['/signin']);
   }
 
   loadReqList() {
@@ -56,11 +52,36 @@ export class ContactsComponent implements OnInit {
 
   loadContacts() {
     this.api.getRequestWithToken('contacts/contacts').subscribe(
-      data => {
-        console.log(data)
+      (data) => {
         this.contacts = data
+        this.getUserList()
       }
     )
+  }
+
+  getUserList() {
+    this.api.getRequest('users').subscribe(
+      data => {
+        this.users = data
+        console.log('length ', this.users.length)
+        this.users.forEach((element, index) => {
+          if (element.username == this.ic.getUsername()) this.users.splice(index, 1)
+        })
+        this.users.forEach((element, index) => {
+          for (let i = 0; i < this.contacts.length; i++) {
+            if (this.contacts[i].contact == element.username) this.users.splice(index, 1)
+          }
+        })
+      }
+    )
+  }
+
+  acceptRequest(id: number) {
+    console.log(id)
+  }
+
+  deleteRequest(id: number) {
+    console.log(id)
   }
 
 }

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProfileComponent } from 'src/app/main/profile/profile.component';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FunctionsService {
-  sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+  public sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
   value = ''
 
-  constructor(private router: Router,
-              private auth: AuthService, ) { }
+  constructor(private router: Router) { }
 
   async readFile(input: Blob): Promise<string> {
     const fr = new FileReader()
@@ -27,8 +27,4 @@ export class FunctionsService {
     )
   }
 
-  logout() {
-    this.auth.clearStorage();
-    this.router.navigate(['/signin']);
-  }
 }

@@ -53,4 +53,14 @@ export class InterceptosService {
     }
   }
 
+  getUsername() {
+    const token = this.auth.getToken()
+    if (!token) {
+      this.router.navigate(['/signin'])
+      return
+    }
+    const decode: Expiration = jwt_decode(token)
+    return decode.sub
+  }
+
 }
