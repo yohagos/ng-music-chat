@@ -7,7 +7,7 @@
   List of all Users
 
   <ul>
-    <li *ngFor="let user of users"> <span>{{user.username}}</span> | {{user.lastname}}, {{user.firstname}} </li>
+    <li *ngFor="let user of users"> <span (click)="createRequest(user.username)">{{user.username}}</span> | {{user.lastname}}, {{user.firstname}} </li>
   </ul>
 </section>
 

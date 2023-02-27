@@ -81,7 +81,6 @@ export class ApiService {
 
   postRequestWithToken(url: string, payload:any) {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.auth.getToken()}`
     });
 

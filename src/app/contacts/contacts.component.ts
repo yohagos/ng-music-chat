@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -63,7 +64,6 @@ export class ContactsComponent implements OnInit {
     this.api.getRequest('users').subscribe(
       data => {
         this.users = data
-        console.log('length ', this.users.length)
         this.users.forEach((element, index) => {
           if (element.username == this.ic.getUsername()) this.users.splice(index, 1)
         })
@@ -72,6 +72,18 @@ export class ContactsComponent implements OnInit {
             if (this.contacts[i].contact == element.username) this.users.splice(index, 1)
           }
         })
+      }
+    )
+  }
+
+  createRequest(newContact: string) {
+    let body = {
+      'requested': newContact
+    }
+
+    this.api.postRequestWithToken('contacts/create', body).subscribe(
+      data => {
+        console.log(data)
       }
     )
   }
