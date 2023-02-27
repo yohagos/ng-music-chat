@@ -1,3 +1,32 @@
 <section>
+  <button (click)="logout()">Logout</button>
   <button (click)="toProfile()">Profile</button>
+</section>
+
+<section>
+  List of Users
+
+  <ul>
+    <li *ngFor="let user of users"> <span>{{user.username}}</span> | {{user.lastname}}, {{user.firstname}} </li>
+  </ul>
+</section>
+
+
+<section>
+  Request List
+  <ul>
+    <li *ngFor="let item of reqList">
+      Req: {{item.user}}
+      <mat-icon>done</mat-icon>
+      <mat-icon>delete</mat-icon>
+    </li>
+  </ul>
+</section>
+
+
+<section>
+  Contact List
+  <ul>
+    <li *ngFor="let item of contacts"> {{item.contact}} </li>
+  </ul>
 </section>

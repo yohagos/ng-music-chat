@@ -11,3 +11,12 @@ export class UserExtended {
   createdAt!: string;
 }
 
+export class UserFull {
+  id!: number
+  firstname!: string;
+  lastname!: string;
+  username!: string;
+  password!: string;
+  profilePhoto!: string;
+  createdAt!: string;
+}

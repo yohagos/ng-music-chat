@@ -43,9 +43,8 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    this.auth.clearStorage();
     this.profilePhoto = '';
-    this.router.navigate(['/signin']);
+    this.fr.logout();
   }
 
   getProfilePhoto() {
