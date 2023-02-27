@@ -2,26 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
 
-## Development server
+## Motive
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The goal which I am trying to reach is to practice and to work on my craft. Herefore I created this Project 'ng-music-chat' with the Backend Project 'music-chat' written in Python/FastAPI in which I combined multiple smaller use cases. in which the following points can be done:
 
-## Code scaffolding
+  - Sign up & Sign in (Authentication)
+  - Upload Files (Profile photo & music)
+  - Receiving, displaying and run files (Profile photo, receiving and playing music)
+  - Music Player Component - play single or list of songs (to play music)
+  - List users, request new contacts & accept requests
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to proceed?
 
-## Build
+I am currently really motivated to working on my craft and to excel. For now I will prioritize functionality over UX/UI, therefore do not be to disappointed as soon you will see the UI :D
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+After I got the feeling, that the application has reach a decent level of maturity and functionality I will work on the UI, to please potential users. Thereafter I plan to implement the backend again in Go (Golang). Both Languages, Python & Go, are really powerful and I really like touse them ^^
