@@ -5,6 +5,7 @@ export class ContactsReq{
 }
 
 export class Contacts {
+  id!: number
   user!: string
   contact!: string
 }

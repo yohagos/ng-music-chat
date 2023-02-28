@@ -22,7 +22,6 @@ export class ContactsComponent implements OnInit {
 
   showContacts = false;
 
-
   constructor(private router: Router,
               private api: ApiService,
               private auth: AuthService,
@@ -53,7 +52,7 @@ export class ContactsComponent implements OnInit {
 
   loadContacts() {
     this.api.getRequestWithToken('contacts/contacts').subscribe(
-      (data) => {
+      data => {
         this.contacts = data
         this.getUserList()
       }
@@ -83,17 +82,34 @@ export class ContactsComponent implements OnInit {
 
     this.api.postRequestWithToken('contacts/create', body).subscribe(
       data => {
-        console.log(data)
       }
     )
   }
 
   acceptRequest(id: number) {
-    console.log(id)
+    this.api.postRequestWithToken(`contacts/accepts/${id}`).subscribe(
+      () => {
+        this.loadReqList()
+        this.loadContacts()
+      }
+    )
+
   }
 
-  deleteRequest(id: number) {
-    console.log(id)
+  declineRequest(id: number) {
+    this.api.deleteRequestWithToken(`contacts/decline/${id}`).subscribe(
+      data => {
+        this.loadReqList()
+      }
+    )
+  }
+
+  deleteContact(id: number) {
+    this.api.deleteRequestWithToken(`contacts/delete/${id}`).subscribe(
+      data => {
+        this.loadContacts()
+      }
+    )
   }
 
 }

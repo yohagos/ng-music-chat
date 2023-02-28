@@ -9,7 +9,6 @@ import { UserBase } from 'src/app/shared/models/user.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  users: UserBase[] = []
 
   constructor(private router: Router,
               private api: ApiService) { }
@@ -23,18 +22,6 @@ export class HomeComponent implements OnInit {
 
   signUp() {
     this.router.navigate(['/signup']);
-  }
-
-  getUsers() {
-    this.api.getRequest('users').subscribe(
-      data => {
-        this.users = data
-      }
-    )
-  }
-
-  clear() {
-    this.users = []
   }
 
 }

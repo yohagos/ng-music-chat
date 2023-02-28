@@ -79,12 +79,26 @@ export class ApiService {
     return this.http.post(this.BACKEND+'/'+url, formData, { headers: headers})
   }
 
-  postRequestWithToken(url: string, payload:any) {
+  postRequestWithToken(url: string, payload?:any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.auth.getToken()}`
     });
 
     return this.http.post(this.BACKEND + '/' + url, payload, { headers: headers}).pipe(
+      map(
+        res => {
+          return res
+        }
+      )
+    )
+  }
+
+  deleteRequestWithToken(url: string) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth.getToken()}`
+    })
+
+    return this.http.delete(this.BACKEND + '/' + url, {headers: headers}).pipe(
       map(
         res => {
           return res
