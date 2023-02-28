@@ -10,6 +10,7 @@ import { MusicPlayerComponent } from "./music/music-player/music-player.componen
 import { ContactsComponent } from "./contacts/contacts.component";
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
+import { MessagesComponent } from './messages/messages.component';
 
 
 const routes: Routes = [
@@ -48,6 +49,11 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactsComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'messages',
+    component: MessagesComponent,
     canActivate: [AuthGuardService]
   }
 ];

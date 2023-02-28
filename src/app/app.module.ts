@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { MusicModule } from './music/music.module';
 import { AppRoutingModule } from './app-routing.module';
+import { MessagesModule } from "./messages/messages.module";
 
 import { SignInComponent } from './main/sign-in/sign-in.component';
 import { ProfileComponent } from './main/profile/profile.component';
@@ -20,7 +21,6 @@ import { InterceptosService } from './shared/services/interceptos.service';
 import { HomeComponent } from './main/home/home.component';
 import { SignUpComponent } from './main/sign-up/sign-up.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -31,13 +31,14 @@ import { MessagesComponent } from './messages/messages.component';
     HomeComponent,
     SignUpComponent,
     ContactsComponent,
-    MessagesComponent,
+
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MessagesModule,
     MusicModule,
     SharedModule,
     AppRoutingModule,

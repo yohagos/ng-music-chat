@@ -44,6 +44,10 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/contact'])
   }
 
+  toMessages() {
+    this.router.navigate(['/messages'])
+  }
+
   logout() {
     this.profilePhoto = '';
     this.auth.clearStorage();
