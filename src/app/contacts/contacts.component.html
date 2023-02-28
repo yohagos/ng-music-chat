@@ -18,7 +18,7 @@
     <li *ngFor="let item of reqList">
       Req: {{item.id}} {{item.user}}
       <mat-icon (click)="acceptRequest(item.id)">done</mat-icon>
-      <mat-icon (click)="declineRequest(item.id)">delete</mat-icon>
+      <mat-icon (click)="declineRequest(item.id)">clear</mat-icon>
     </li>
   </ul>
 </section>
@@ -27,6 +27,16 @@
 <section *ngIf="contacts?.length">
   Contact List
   <ul>
-    <li *ngFor="let item of contacts">{{item.contact}} <mat-icon (click)="deleteContact(item.id)">delete</mat-icon></li>
+    <div *ngFor="let item of contacts">
+      <li>{{item.contact}}
+        <mat-icon (click)="showContactInfo(item.contact)">info</mat-icon>
+        <mat-icon (click)="deleteContact(item.id)">delete</mat-icon>
+      </li>
+      <p *ngIf="showContact">{{contactInfo.firstname}} {{contactInfo.lastname}}
+        <mat-icon (click)="clearContactInfo()">remove</mat-icon>
+      </p>
+    </div>
+
+
   </ul>
 </section>

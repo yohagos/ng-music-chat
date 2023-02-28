@@ -19,8 +19,9 @@ export class ContactsComponent implements OnInit {
   reqList!: ContactsReq[]
 
   contacts: Contacts[] = []
+  contactInfo!: UserFull;
 
-  showContacts = false;
+  showContact = false;
 
   constructor(private router: Router,
               private api: ApiService,
@@ -110,6 +111,20 @@ export class ContactsComponent implements OnInit {
         this.loadContacts()
       }
     )
+  }
+
+  showContactInfo(name: string) {
+    this.api.getRequestWithToken(`contacts/${name}`).subscribe(
+      data => {
+        this.showContact = true
+        this.contactInfo = data
+      }
+    )
+  }
+
+  clearContactInfo() {
+    this.contactInfo = new UserFull()
+    this.showContact = false
   }
 
 }
