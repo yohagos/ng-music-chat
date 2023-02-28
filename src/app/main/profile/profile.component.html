@@ -1,11 +1,10 @@
 <section>
-  <button (click)="logout()">Logout</button>
-  <button (click)="toSongs()">Songs</button>
-  <button (click)="toContacts()">Contacts</button>
+  <mat-icon (click)="logout()">exit_to_app</mat-icon>
+  <mat-icon (click)="toSongs()">music_video</mat-icon>
+  <mat-icon (click)="toContacts()"> contacts</mat-icon>
 </section>
 
 <h1>Profile <div *ngIf="currentUser">{{currentUser.firstname}} {{currentUser.lastname}}</div></h1>
-
 
 <section>
   <div *ngIf="profilePhoto">
@@ -17,8 +16,4 @@
     <input #fileInput type="file" (change)="onFileInput($event)" style="display: none;"/>
   </button>
 </section>
-
-
-
-
 
