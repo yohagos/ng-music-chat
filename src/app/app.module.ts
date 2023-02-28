@@ -20,6 +20,7 @@ import { InterceptosService } from './shared/services/interceptos.service';
 import { HomeComponent } from './main/home/home.component';
 import { SignUpComponent } from './main/sign-up/sign-up.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ContactsComponent } from './contacts/contacts.component';
     HomeComponent,
     SignUpComponent,
     ContactsComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
