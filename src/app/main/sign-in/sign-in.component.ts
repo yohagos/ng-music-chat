@@ -20,13 +20,15 @@ export class SignInComponent implements OnInit {
   constructor(public fb: FormBuilder,
               private auth: AuthService,
               private api: ApiService,
-              private router: Router) { }
+              private router: Router) {
+                this.signInForm = this.fb.group({
+                  username: ['', Validators.required],
+                  password: ['', Validators.required]
+                })
+              }
 
   ngOnInit() {
-    this.signInForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    })
+
   }
 
   backHome() {

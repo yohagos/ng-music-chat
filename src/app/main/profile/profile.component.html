@@ -8,9 +8,9 @@
 <h1>Profile <div *ngIf="currentUser">{{currentUser.firstname}} {{currentUser.lastname}}</div></h1>
 
 <section>
-  <div *ngIf="profilePhoto">
+  <!-- <div *ngIf="profilePhoto">
     <img [src]="profilePhoto" alt="profile photo" class="profile-pic">
-  </div>
+  </div> -->
 
   <button type="button" (click)="fileInput.click()">
     <span>Upload</span>
@@ -18,3 +18,14 @@
   </button>
 </section>
 
+
+<mat-card>
+  <mat-card-content *ngIf="profilePhoto.length > 0">
+    <img [src]="profilePhoto" alt="profile photo" class="profile-pic">
+  </mat-card-content>
+
+  <button mat-raised-button color="primary">
+    <span>Upload</span>
+    <input #fileInput type="file" (click)="onFileInput($event)"  class="chooseFile">
+  </button>
+</mat-card>

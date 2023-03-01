@@ -2,7 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatChipsModule } from "@angular/material/chips";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { MatDividerModule } from "@angular/material/divider";
@@ -31,7 +38,6 @@ import { ContactsComponent } from './contacts/contacts.component';
     HomeComponent,
     SignUpComponent,
     ContactsComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -42,11 +48,17 @@ import { ContactsComponent } from './contacts/contacts.component';
     MusicModule,
     SharedModule,
     AppRoutingModule,
+    MatButtonModule,
+    MatCardModule,
     MatIconModule,
     MatDividerModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
     MatListModule,
     MatSliderModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatChipsModule
   ],
   exports: [],
   providers: [

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contacts } from '../shared/models/contacts.model';
+import { MessageBase } from '../shared/models/message.model';
 import { ApiService } from '../shared/services/api.service';
 
 @Component({
@@ -9,6 +10,9 @@ import { ApiService } from '../shared/services/api.service';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
+
+  msgList!: MessageBase[]
+  contact!: string
 
   contactList: Contacts[] = [];
 
@@ -30,7 +34,18 @@ export class MessagesComponent implements OnInit {
     this.api.getRequestWithToken('contacts/contacts').subscribe(
       data => {
         this.contactList = data
-        console.log(data)
+      }
+    )
+  }
+
+  setMessageList(contact: string) {
+    this.api.getRequestWithToken(`msg/${contact}`).subscribe(
+      data => {
+        this.msgList = data
+        this.contact = contact
+      },
+      error => {
+        console.log('error')
       }
     )
   }

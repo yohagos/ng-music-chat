@@ -6,10 +6,10 @@
 
 <div class="chat-contacts">
   <mat-action-list *ngIf="contactList?.length">
-    <button mat-list-item *ngFor="let item of contactList"> {{item.contact}} </button>
+    <button mat-list-item *ngFor="let item of contactList" (click)="setMessageList(item.contact)"> {{item.contact}} </button>
   </mat-action-list>
 
-  <app-chat></app-chat>
+  <app-chat [msgList]="msgList!" [receiver]="contact"></app-chat>
 
 </div>
 

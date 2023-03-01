@@ -1,1 +1,16 @@
+<div *ngIf="receiver">
+  <body>
+    <div *ngIf="msgList?.length || !undefined">
+      <mat-action-list>
+        <mat-list-item class="textMsg" *ngFor="let item of msgList">{{item.text}}</mat-list-item>
+      </mat-action-list>
+    </div>
+  </body>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Send message: </mat-label>
+    <input matInput [formControl]="message"/>
+  </mat-form-field>
+  <mat-icon (click)="sendMessage()">send</mat-icon>
+</div>
 
