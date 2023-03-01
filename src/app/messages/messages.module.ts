@@ -5,10 +5,12 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 
 import { MessagesComponent } from "./messages.component";
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
-    MessagesComponent
+    MessagesComponent,
+    ChatComponent
   ],
   imports: [
     CommonModule,

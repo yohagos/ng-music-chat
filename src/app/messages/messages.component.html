@@ -4,7 +4,13 @@
 
 <br />
 
-<mat-action-list *ngIf="contactList?.length">
-  <button mat-list-item *ngFor="let item of contactList"> {{item.contact}} </button>
-</mat-action-list>
+<div class="chat-contacts">
+  <mat-action-list class="contacts" *ngIf="contactList?.length">
+    <button mat-list-item *ngFor="let item of contactList"> {{item.contact}} </button>
+  </mat-action-list>
+
+  
+
+</div>
+
 

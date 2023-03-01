@@ -28,8 +28,6 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private fr: FunctionsService
   ) {
-    console.log(this.profilePhoto)
-    this.profilePhoto = ''
     this.getProfilePhoto()
     this.getCurrentUserInfo()
   }

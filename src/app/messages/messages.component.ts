@@ -30,6 +30,7 @@ export class MessagesComponent implements OnInit {
     this.api.getRequestWithToken('contacts/contacts').subscribe(
       data => {
         this.contactList = data
+        console.log(data)
       }
     )
   }
