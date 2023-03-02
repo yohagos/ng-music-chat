@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy , Input} from '@angular/core';
+import { Component, OnInit, OnDestroy , Input, OnChanges, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 
@@ -16,18 +16,24 @@ export class WebsocketComponent implements OnInit, OnDestroy {
     public ws: WebsocketService,
     private router: Router
     ) {
-      this.ws.connect()
+
     }
 
   ngOnInit(): void {
+    console.log('ngOnInit')
+    this.ws.connect()
   }
 
-  sendMessage(message: string) {
-    this.ws.sendMessage(this.receiver, message)
+  ngAfterViewInit() {
+    this.ws.connect()
   }
 
   ngOnDestroy() {
     this.ws.close()
+  }
+
+  sendMessage(message: string) {
+    this.ws.sendMessage(this.receiver, message)
   }
 
   toProfile() {

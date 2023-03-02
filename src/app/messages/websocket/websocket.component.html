@@ -2,7 +2,7 @@
   <button  >Profile</button>
 </section>
 
-<h2>Send a message:</h2>
+<h2>Send a message to {{receiver}}:</h2>
 <form (ngSubmit)="sendMessage(message); message =''">
   <input [(ngModel)]="message" name="message" type="text" />
   <button type="submit" style="margin-left: 10px;">Send</button>
