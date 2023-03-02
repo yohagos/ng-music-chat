@@ -8,10 +8,6 @@
 <h1>Profile <div *ngIf="currentUser">{{currentUser.firstname}} {{currentUser.lastname}}</div></h1>
 
 <section>
-  <!-- <div *ngIf="profilePhoto">
-    <img [src]="profilePhoto" alt="profile photo" class="profile-pic">
-  </div> -->
-
   <button type="button" (click)="fileInput.click()">
     <span>Upload</span>
     <input #fileInput type="file" (change)="onFileInput($event)" style="display: none;"/>

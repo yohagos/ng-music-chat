@@ -10,6 +10,7 @@ import { ApiService } from '../shared/services/api.service';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
+  showWebSocket = false
 
   msgList!: MessageBase[]
   contact!: string
@@ -48,6 +49,11 @@ export class MessagesComponent implements OnInit {
         console.log('error')
       }
     )
+  }
+
+  setReceiver(receiver: string) {
+    this.contact = receiver
+    this.showWebSocket = true
   }
 
 

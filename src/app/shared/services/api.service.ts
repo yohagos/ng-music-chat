@@ -14,8 +14,9 @@ export class ApiService {
   constructor(private http: HttpClient,
               private auth: AuthService) { }
 
-  getBackendUrl() {
-    return this.BACKEND
+  getUrlWebSocket() {
+    let url = this.BACKEND.replace('http', 'ws')
+    return url
   }
 
   getRequest(url: string): Observable<any> {
