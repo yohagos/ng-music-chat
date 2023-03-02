@@ -14,6 +14,10 @@ export class ApiService {
   constructor(private http: HttpClient,
               private auth: AuthService) { }
 
+  getBackendUrl() {
+    return this.BACKEND
+  }
+
   getRequest(url: string): Observable<any> {
     return this.http.get(this.BACKEND+'/'+url).pipe(
       map(
