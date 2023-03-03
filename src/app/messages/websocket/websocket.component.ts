@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy , Input, OnChanges, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
-import { WebsocketService } from 'src/app/shared/services/websocket.service';
+import { Message, WebsocketService } from 'src/app/shared/services/websocket.service';
 
 @Component({
   selector: 'app-websocket',
@@ -8,7 +8,7 @@ import { WebsocketService } from 'src/app/shared/services/websocket.service';
   styleUrls: ['./websocket.component.css']
 })
 export class WebsocketComponent implements OnInit, OnDestroy {
-
+  @Input() msgList!: Message[]
   @Input() receiver: string = ''
   message = ''
 
@@ -20,8 +20,14 @@ export class WebsocketComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
-    console.log('ngOnInit')
-    this.ws.connect()
+    console.log('websocket -> msg list : ', this.msgList)
+    if (this.msgList) {
+      console.log('connect with msglist')
+      this.ws.connect(this.msgList)
+    } else {
+      console.log('connect without msg list')
+      this.ws.connect()
+    }
   }
 
   ngAfterViewInit() {

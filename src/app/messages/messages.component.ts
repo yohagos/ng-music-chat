@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Contacts } from '../shared/models/contacts.model';
-import { MessageBase } from '../shared/models/message.model';
+
+import { Message } from '../shared/services/websocket.service';
 import { ApiService } from '../shared/services/api.service';
+
 
 @Component({
   selector: 'app-messages',
@@ -12,14 +15,14 @@ import { ApiService } from '../shared/services/api.service';
 export class MessagesComponent implements OnInit {
   showWebSocket = false
 
-  msgList!: MessageBase[]
+  msgList!: Message[]
   contact!: string
 
   contactList: Contacts[] = [];
 
   constructor(
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
     ) {
       this.loadContacts()
     }
@@ -43,7 +46,7 @@ export class MessagesComponent implements OnInit {
     this.api.getRequestWithToken(`msg/${contact}`).subscribe(
       data => {
         this.msgList = data
-        this.contact = contact
+        console.log( 'setMessageList -> ', data)
       },
       error => {
         console.log('error')
@@ -53,7 +56,12 @@ export class MessagesComponent implements OnInit {
 
   setReceiver(receiver: string) {
     this.contact = receiver
-    this.showWebSocket = true
+    this.setMessageList(receiver)
+
+    setTimeout(() => {
+      this.showWebSocket = true
+    }, 100);
+
   }
 
 

@@ -4,7 +4,7 @@ import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { ApiService } from './api.service';
 import { InterceptosService } from './interceptos.service';
 
-interface Message {
+export interface Message {
   sender: string
   receiver: string
   text: string
@@ -28,16 +28,23 @@ export class WebsocketService {
     private interceptor: InterceptosService
   ) {  }
 
-  public connect() {
+  public connect(data?: Message[]) {
+    if (data) this.addReceivedData(data)
+
     if (!this.socket$ || this.socket$.closed) {
       let url = this.api.getUrlWebSocket() + '/msg/ws'
       this.socket$ = webSocket(url)
       this.socket$.subscribe(
         (data: Message) => {
           this.receivedData.push(data)
+
         }
       )
     }
+  }
+
+  addReceivedData(data: Message[]) {
+    this.receivedData = data
   }
 
   sendMessage(receiver: string, text: string) {

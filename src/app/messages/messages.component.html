@@ -4,21 +4,11 @@
 
 <br />
 
-<!-- <div class="chat-contacts">
-  <mat-action-list *ngIf="contactList?.length">
-    <button mat-list-item *ngFor="let item of contactList" (click)="setMessageList(item.contact)"> {{item.contact}} </button>
-  </mat-action-list>
-
-  <app-chat [msgList]="msgList!" [receiver]="contact"></app-chat>
-
-</div> -->
-
-
 <section>
   <mat-action-list *ngIf="contactList?.length">
     <button mat-list-item *ngFor="let item of contactList" (click)="setReceiver(item.contact)"> {{item.contact}} </button>
   </mat-action-list>
 
-  <app-websocket *ngIf="showWebSocket" [receiver]="contact"></app-websocket>
+  <app-websocket *ngIf="showWebSocket" [receiver]="contact" [msgList]="msgList"></app-websocket>
 </section>
 
