@@ -7,13 +7,6 @@
 
 <h1>Profile <div *ngIf="currentUser">{{currentUser.firstname}} {{currentUser.lastname}}</div></h1>
 
-<section>
-  <button type="button" (click)="fileInput.click()">
-    <span>Upload</span>
-    <input #fileInput type="file" (change)="onFileInput($event)" style="display: none;"/>
-  </button>
-</section>
-
 
 <mat-card>
   <mat-card-content *ngIf="profilePhoto.length > 0">
@@ -21,7 +14,7 @@
   </mat-card-content>
 
   <button mat-raised-button color="primary">
-    <span>Upload</span>
-    <input #fileInput type="file" (click)="onFileInput($event)"  class="chooseFile">
+    <input #fileInput id="button-file" hidden="true" type="file" (change)="onFileInput($event)" accept=".jpg" />
+    <label for="button-file" class="md-button md-raised md-primary">Upload</label>
   </button>
 </mat-card>
