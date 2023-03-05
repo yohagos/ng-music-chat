@@ -8,7 +8,7 @@ export interface Message {
   sender: string
   receiver: string
   text: string
-  send_time?: string
+  send_date: string
 }
 
 @Injectable({
@@ -17,11 +17,6 @@ export interface Message {
 export class WebsocketService {
   private socket$!: WebSocketSubject<any>
   public receivedData: Message[] = []
-
-  /*
-    Need one subscribtion to a service to load
-    the messages between to users
-  */
 
   constructor(
     private api: ApiService,
@@ -37,13 +32,13 @@ export class WebsocketService {
       this.socket$.subscribe(
         (data: Message) => {
           this.receivedData.push(data)
-
         }
       )
     }
   }
 
   addReceivedData(data: Message[]) {
+    data = data.sort((a, b) => (a.send_date > b.send_date) ? 1 : -1)
     this.receivedData = data
   }
 

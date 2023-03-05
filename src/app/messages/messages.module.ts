@@ -7,13 +7,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 
 import { MessagesComponent } from "./messages.component";
-import { ChatComponent } from "./chat/chat.component";
 import { WebsocketComponent } from './websocket/websocket.component';
 
 @NgModule({
   declarations: [
     MessagesComponent,
-    ChatComponent,
     WebsocketComponent
   ],
   imports: [

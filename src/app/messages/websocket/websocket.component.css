@@ -1,0 +1,32 @@
+span {
+  font-size: x-small;
+}
+
+.sender {
+  display: flex;
+  justify-content: right;
+  background-color: rgb(74, 74, 245);
+  color: white;
+}
+
+button {
+  display: flex;
+  justify-self: auto;
+}
+
+.message-field {
+  width: 50em;
+  height: 40em;
+  border: solid blue;
+  overflow: auto;
+}
+
+form {
+  display: inline-flex;
+  justify-items: auto;
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+}

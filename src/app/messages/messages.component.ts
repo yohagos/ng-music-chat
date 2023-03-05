@@ -46,7 +46,6 @@ export class MessagesComponent implements OnInit {
     this.api.getRequestWithToken(`msg/${contact}`).subscribe(
       data => {
         this.msgList = data
-        console.log( 'setMessageList -> ', data)
       },
       error => {
         console.log('error')
@@ -55,6 +54,9 @@ export class MessagesComponent implements OnInit {
   }
 
   setReceiver(receiver: string) {
+    if (this.contact != receiver) {
+      this.msgList = []
+    }
     this.contact = receiver
     this.setMessageList(receiver)
 

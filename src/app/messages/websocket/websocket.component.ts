@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy , Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, OnInit, OnDestroy , Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { Message, WebsocketService } from 'src/app/shared/services/websocket.service';
 
@@ -20,26 +20,35 @@ export class WebsocketComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
-    console.log('websocket -> msg list : ', this.msgList)
     if (this.msgList) {
-      console.log('connect with msglist')
+      console.log(this.msgList)
       this.ws.connect(this.msgList)
     } else {
-      console.log('connect without msg list')
+      console.log(this.msgList)
       this.ws.connect()
     }
   }
 
   ngAfterViewInit() {
+    console.log('after init')
     this.ws.connect()
   }
 
   ngOnDestroy() {
+    console.log('destroy')
     this.ws.close()
   }
 
   sendMessage(message: string) {
     this.ws.sendMessage(this.receiver, message)
+  }
+
+  convertDateString(sendDate?: string) {
+    if (sendDate) {
+      let [dateComp, timeComp] = sendDate.split(' ')
+      return timeComp
+    }
+    return ''
   }
 
   toProfile() {
