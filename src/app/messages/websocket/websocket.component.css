@@ -36,6 +36,7 @@ button {
 }
 
 .send-message, mat-icon  {
+  padding: .3em;
   display: flex;
   justify-self: baseline;
 }

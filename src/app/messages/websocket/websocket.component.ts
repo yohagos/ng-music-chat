@@ -35,8 +35,9 @@ export class WebsocketComponent implements OnInit, OnDestroy {
     this.ws.close()
   }
 
-  sendMessage(message: string) {
-    this.ws.sendMessage(this.receiver, message)
+  sendMessage() {
+    this.ws.sendMessage(this.receiver, this.message)
+    this.message = ''
   }
 
   convertDateString(sendDate?: string) {
