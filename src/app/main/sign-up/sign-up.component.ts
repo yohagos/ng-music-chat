@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -13,14 +13,14 @@ import { UserBase } from 'src/app/shared/models/user.model';
 export class SignUpComponent implements OnInit {
   check = false;
 
-  createForm: FormGroup = new FormGroup({
-    firstname: new FormControl(''),
-    lastname: new FormControl(''),
-    username: new FormControl(''),
-    password: new FormControl(''),
+  createForm: UntypedFormGroup = new UntypedFormGroup({
+    firstname: new UntypedFormControl(''),
+    lastname: new UntypedFormControl(''),
+    username: new UntypedFormControl(''),
+    password: new UntypedFormControl(''),
   })
 
-  constructor(public fb: FormBuilder,
+  constructor(public fb: UntypedFormBuilder,
               private auth: AuthService,
               private api: ApiService,
               private router: Router) { }

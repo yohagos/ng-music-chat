@@ -1,7 +1,7 @@
 
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -15,9 +15,9 @@ import { ApiService } from 'src/app/shared/services/api.service';
 })
 export class SignInComponent implements OnInit {
 
-  signInForm!: FormGroup
+  signInForm!: UntypedFormGroup
 
-  constructor(public fb: FormBuilder,
+  constructor(public fb: UntypedFormBuilder,
               private auth: AuthService,
               private api: ApiService,
               private router: Router) {

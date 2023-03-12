@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 
@@ -17,7 +17,7 @@ import { PlayerService } from '../shared/services/player.service';
 export class MusicComponent implements OnInit {
   musicList: MusicBase[] = [];
 
-  addSongForm!: FormGroup;
+  addSongForm!: UntypedFormGroup;
 
   file!: File
 
@@ -27,7 +27,7 @@ export class MusicComponent implements OnInit {
     private auth: AuthService,
     private api: ApiService,
     private router: Router,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     private fr: FunctionsService,
     private player: PlayerService
   ) {}
