@@ -21,21 +21,17 @@ export class WebsocketComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.msgList) {
-      console.log(this.msgList)
       this.ws.connect(this.msgList)
     } else {
-      console.log(this.msgList)
       this.ws.connect()
     }
   }
 
   ngAfterViewInit() {
-    console.log('after init')
     this.ws.connect()
   }
 
   ngOnDestroy() {
-    console.log('destroy')
     this.ws.close()
   }
 

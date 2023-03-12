@@ -79,7 +79,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onFileInput(event: any) {
-    console.log('hi, ', event.target.files[0])
     let photo: File = event.target.files[0]
     let fd: FormData = new FormData()
     fd.append('file', photo, photo.name)
