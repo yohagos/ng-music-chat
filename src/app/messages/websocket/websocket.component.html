@@ -1,20 +1,29 @@
-{{receiver}}
 <div class="message-field">
   <mat-action-list>
     <div  *ngFor="let data of ws.receivedData">
       <button mat-list-item  *ngIf="receiver == data.receiver">
-          <span>{{convertDateString(data.send_date)}}</span>  {{data.text}} ({{data.receiver}})
+          <span>{{convertDateString(data.send_date)}}</span>  {{data.text}}
       </button>
       <button mat-list-item *ngIf="receiver != data.receiver" class="sender">
-          <span>{{convertDateString(data.send_date)}}</span>  {{data.text}} ({{data.receiver}})
+          <span>{{convertDateString(data.send_date)}}</span>  {{data.text}}
       </button>
     </div>
   </mat-action-list>
 </div>
 
-<form (ngSubmit)="sendMessage(message); message =''" >
-  <mat-label>Sent message</mat-label>
-  <input matInput [(ngModel)]="message" name="message" type="text"/>
-  <button type="submit" >Send</button>
-</form>
+<div class="send-message">
+  <mat-form-field appearance="standard">
+    <div>
+      <mat-label>Sent message</mat-label>
+      <input matInput [(ngModel)]="message" type="text"/>
+    </div>
+  </mat-form-field>
+
+  <button mat-fab color="primary" type="submit">
+    <mat-icon matSuffix>send</mat-icon>
+  </button>
+
+</div>
+
+
 

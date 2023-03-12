@@ -21,12 +21,21 @@ button {
   overflow: auto;
 }
 
-form {
-  display: inline-flex;
-  justify-items: auto;
+.form-input {
   width: 100%;
 }
 
-.form-input {
-  width: 100%;
+.button-row {
+  margin-right: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.send-message {
+  display: flex;
+}
+
+.send-message, mat-icon  {
+  display: flex;
+  justify-self: baseline;
 }
