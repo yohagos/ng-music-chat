@@ -21,6 +21,14 @@ button {
   overflow: auto;
 }
 
+#anchor {
+  overflow-anchor: auto;
+}
+
+#scroller * {
+  overflow-anchor: none;
+}
+
 .form-input {
   width: 100%;
 }

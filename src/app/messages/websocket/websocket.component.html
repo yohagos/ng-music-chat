@@ -1,6 +1,6 @@
-<div class="message-field">
+<div class="message-field" id="scroller">
   <mat-action-list>
-    <div  *ngFor="let data of ws.receivedData">
+    <div *ngFor="let data of ws.receivedData">
       <button mat-list-item  *ngIf="receiver == data.receiver">
           <span>{{convertDateString(data.send_date)}}</span>  {{data.text}}
       </button>
@@ -9,14 +9,13 @@
       </button>
     </div>
   </mat-action-list>
+  <div id="anchor"></div>
 </div>
 
 <div class="send-message">
-  <mat-form-field appearance="fill">
-    <div>
-      <mat-label>Sent message</mat-label>
-      <input matInput [(ngModel)]="message" type="text" />
-    </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Sent message to {{receiver}}</mat-label>
+    <input matInput [(ngModel)]="message" type="text" placeholder="Sent Message"/>
   </mat-form-field>
 
   <button mat-fab color="primary" [disabled]="!message" (click)="sendMessage()">
