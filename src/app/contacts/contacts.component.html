@@ -3,14 +3,13 @@
   <button (click)="toProfile()">Profile</button>
 </section>
 
-<section>
+<section *ngIf="users.length > 1">
   List of all Users
 
   <ul>
     <li *ngFor="let user of users"> <span (click)="createRequest(user.username)">{{user.username}}</span> | {{user.lastname}}, {{user.firstname}} </li>
   </ul>
 </section>
-
 
 <section *ngIf="reqList?.length">
   Request List
