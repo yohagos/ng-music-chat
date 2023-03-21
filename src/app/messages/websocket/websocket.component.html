@@ -1,4 +1,4 @@
-<div class="message-field" id="scroller">
+<div class="message-field">
   <mat-action-list>
     <div *ngFor="let data of ws.receivedData">
       <button mat-list-item  *ngIf="receiver == data.receiver">
@@ -15,7 +15,7 @@
 <div class="send-message">
   <mat-form-field appearance="outline">
     <mat-label>Sent message to {{receiver}}</mat-label>
-    <input matInput [(ngModel)]="message" type="text" placeholder="Sent Message"/>
+    <input matInput [(ngModel)]="message" type="text"/>
   </mat-form-field>
 
   <button mat-fab color="primary" [disabled]="!message" (click)="sendMessage()">

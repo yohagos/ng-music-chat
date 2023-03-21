@@ -92,7 +92,7 @@ export class MusicPlayerComponent implements OnInit, OnChanges {
     if (index !== undefined && index < this.musicList.length) {
         index = 0;
     }
-    console.log('play function');
+    
     if (index === undefined) {
       if (this.audio.paused) {
         if (this.audio.readyState === 0) {

@@ -15,18 +15,12 @@ button {
 }
 
 .message-field {
-  width: 50em;
-  height: 40em;
+  width: 80%;
+  height: 25em;
   border: solid blue;
   overflow: auto;
-}
-
-#anchor {
-  overflow-anchor: auto;
-}
-
-#scroller * {
-  overflow-anchor: none;
+  margin-left: 7%;
+  margin-right: 7%;
 }
 
 .form-input {
@@ -43,8 +37,9 @@ button {
   display: flex;
 }
 
-.send-message, mat-icon  {
+.send-message mat-form-field {
   padding: .3em;
+  width: max-content;
   display: flex;
   justify-self: baseline;
 }
