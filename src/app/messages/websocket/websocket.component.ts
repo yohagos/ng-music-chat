@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy , Input} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Message, WebsocketService } from 'src/app/shared/services/websocket.service';
 
@@ -12,19 +13,18 @@ export class WebsocketComponent implements OnInit, OnDestroy {
   @Input() receiver: string = ''
   message = ''
 
+  form?: FormGroup;
+
   constructor(
     public ws: WebsocketService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
     ) {
 
     }
 
   ngOnInit(): void {
-    if (this.msgList) {
-      this.ws.connect(this.msgList)
-    } else {
-      this.ws.connect()
-    }
+    this.ws.connect()
   }
 
   ngAfterViewInit() {
@@ -33,6 +33,16 @@ export class WebsocketComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.ws.close()
+  }
+
+  initializeForm() {
+    const fb = new FormBuilder();
+    this.form = fb.group({
+    })
+  }
+
+  setMessage(text: string) {
+    this.message = text;
   }
 
   sendMessage() {

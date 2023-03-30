@@ -20,8 +20,6 @@ import { WebsocketComponent } from './websocket/websocket.component';
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
 
     MatButtonModule,
     MatIconModule,

@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 
 import { Contacts } from '../shared/models/contacts.model';
 
-import { Message } from '../shared/services/websocket.service';
+import { Message, WebsocketService } from '../shared/services/websocket.service';
 import { ApiService } from '../shared/services/api.service';
+import { WebsocketComponent } from './websocket/websocket.component';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class MessagesComponent implements OnInit {
   constructor(
     private router: Router,
     private api: ApiService,
+    private wsService: WebsocketService
     ) {
       this.loadContacts()
     }
@@ -46,25 +48,19 @@ export class MessagesComponent implements OnInit {
     this.api.getRequestWithToken(`msg/${contact}`).subscribe(
       data => {
         this.msgList = data
-      },
-      error => {
-        console.log('error')
       }
     )
   }
 
   setReceiver(receiver: string) {
-    if (this.contact != receiver) {
-      this.msgList = []
-    }
+    this.msgList = []
     this.contact = receiver
     this.setMessageList(receiver)
 
     setTimeout(() => {
+      this.wsService.setContact(receiver)
+      this.wsService.addReceivedData(this.msgList)
       this.showWebSocket = true
     }, 100);
-
   }
-
-
 }

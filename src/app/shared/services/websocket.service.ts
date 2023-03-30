@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 
 import { ApiService } from './api.service';
@@ -15,6 +15,8 @@ export interface Message {
   providedIn: 'root'
 })
 export class WebsocketService {
+  contact = ''
+
   private socket$!: WebSocketSubject<any>
   public receivedData: Message[] = []
 
@@ -23,8 +25,8 @@ export class WebsocketService {
     private interceptor: InterceptosService
   ) {  }
 
-  public connect(data?: Message[]) {
-    if (data) this.addReceivedData(data)
+  async connect() {
+   await this.loadData()
 
     if (!this.socket$ || this.socket$.closed) {
       let url = this.api.getUrlWebSocket() + '/msg/ws'
@@ -37,7 +39,16 @@ export class WebsocketService {
     }
   }
 
+  loadData() {
+    this.api.getRequestWithToken(`msg/${this.contact}`).subscribe(
+      (data) => {
+        this.receivedData = data;
+      },
+    )
+  }
+
   addReceivedData(data: Message[]) {
+    this.receivedData = []
     data = data.sort((a, b) => (a.send_date > b.send_date) ? 1 : -1)
     this.receivedData = data
   }
@@ -45,6 +56,10 @@ export class WebsocketService {
   sendMessage(receiver: string, text: string) {
     let sender = this.interceptor.getUsername()
     this.socket$.next({sender, receiver, text})
+  }
+
+  setContact(con: string) {
+    this.contact = con
   }
 
   close() {
