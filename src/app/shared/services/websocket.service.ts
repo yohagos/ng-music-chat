@@ -1,4 +1,4 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 
 import { ApiService } from './api.service';

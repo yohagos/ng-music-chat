@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -24,10 +24,12 @@ import { MessagesModule } from "./messages/messages.module";
 
 import { SignInComponent } from './main/sign-in/sign-in.component';
 import { ProfileComponent } from './main/profile/profile.component';
-import { InterceptosService } from './shared/services/interceptos.service';
 import { HomeComponent } from './main/home/home.component';
 import { SignUpComponent } from './main/sign-up/sign-up.component';
 import { ContactsComponent } from './contacts/contacts.component';
+
+import { InterceptosService } from './shared/services/interceptos.service';
+import { GlobalErrorHandlerService } from "./shared/services/global-error-handler.service";
 
 
 @NgModule({
@@ -67,6 +69,10 @@ import { ContactsComponent } from './contacts/contacts.component';
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptosService,
       multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandlerService
     }
   ],
   bootstrap: [AppComponent]

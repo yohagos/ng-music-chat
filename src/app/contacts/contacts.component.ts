@@ -81,10 +81,7 @@ export class ContactsComponent implements OnInit {
       'requested': newContact
     }
 
-    this.api.postRequestWithToken('contacts/create', body).subscribe(
-      data => {
-      }
-    )
+    this.api.postRequestWithToken('contacts/create', body).subscribe()
   }
 
   acceptRequest(id: number) {
