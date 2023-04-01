@@ -13,9 +13,9 @@
 </div>
 
 <div class="send-message">
-  <mat-form-field  appearance="outline">
+  <mat-form-field [formGroup]="form" appearance="outline">
     <mat-label>Sent message to {{receiver}}</mat-label>
-    <input matInput (change)="setMessage($event)"/>
+    <input matInput formControlName="msg"/>
   </mat-form-field>
 
   <button mat-fab color="primary" (click)="sendMessage()">

@@ -47,6 +47,11 @@ export class WebsocketService {
     )
   }
 
+  getTimeStamp() {
+    let timestamp =new Date()
+    return timestamp.toISOString().replace('T', ' ').replace('Z', '');
+  }
+
   addReceivedData(data: Message[]) {
     this.receivedData = []
     data = data.sort((a, b) => (a.send_date > b.send_date) ? 1 : -1)
@@ -55,7 +60,8 @@ export class WebsocketService {
 
   sendMessage(receiver: string, text: string) {
     let sender = this.interceptor.getUsername()
-    this.socket$.next({sender, receiver, text})
+    let send_date = this.getTimeStamp()
+    this.socket$.next({sender, receiver, text, send_date})
   }
 
   setContact(con: string) {

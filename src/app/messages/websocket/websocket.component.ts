@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy , Input} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { duration } from 'moment';
 import { AlertService } from 'src/app/shared/services/alert.service';
@@ -14,9 +14,9 @@ export class WebsocketComponent implements OnInit, OnDestroy {
   @Input() msgList!: Message[]
   @Input() receiver: string = ''
 
-  message = ''
-
-  form?: FormGroup;
+  form: FormGroup = new FormGroup({
+    msg: new FormControl('')
+  })
 
   constructor(
     public ws: WebsocketService,
@@ -38,17 +38,14 @@ export class WebsocketComponent implements OnInit, OnDestroy {
     this.ws.close()
   }
 
-  setMessage(event: any) {
-    this.message = event.target.value;
-  }
-
   sendMessage() {
-    if (this.message) {
-      this.ws.sendMessage(this.receiver, this.message)
-      this.message = ''
+    let message = this.form.get('msg')?.value;
+    if (message) {
+      this.ws.sendMessage(this.receiver, message)
     } else {
-      const alertMessage = this.alert.open('Empty message')
+      this.alert.open('Empty message')
     }
+    this.form.setValue({'msg': ''})
   }
 
   convertDateString(sendDate?: string) {
