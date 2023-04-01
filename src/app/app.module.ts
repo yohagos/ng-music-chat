@@ -14,6 +14,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatSliderModule } from "@angular/material/slider";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -57,7 +58,8 @@ import { ContactsComponent } from './contacts/contacts.component';
     MatListModule,
     MatSliderModule,
     MatToolbarModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule
   ],
   exports: [],
   providers: [
