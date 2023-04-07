@@ -11,13 +11,20 @@ import { ContactsComponent } from "./contacts/contacts.component";
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { MessagesComponent } from './messages/messages.component';
+import { MainShellComponent } from './shared/navigation/main-shell/main-shell.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    component: MainShellComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: HomeComponent
+      }
+    ]
   },
   {
     path: 'home',

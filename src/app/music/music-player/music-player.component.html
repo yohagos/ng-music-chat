@@ -11,7 +11,7 @@
   </mat-toolbar>
 </header>
 <div class="music-list">
-  <table mat-table dataSource="musicList" class="music-list">
+  <table mat-table [dataSource]="musicList" class="music-list">
       <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef>Title</th>
           <td mat-cell *matCellDef="let music; let i = index;">
@@ -53,9 +53,10 @@
       (input)="durationSlider($event)"
       class="slider-full"
       color="primary"
-      value="{{ audio.readyState === 0 ? 0 : audio.currentTime }}"
+      value=${`{{ audio.readyState = 0 ? 0 : audio.currentTime }}`}
       min="0" max="{{ duration }}">
     </mat-slider>
+    <!-- MatSlider ' value="{{ audio.readyState === 0 ? 0 : audio.currentTime }}" ' -->
   </mat-toolbar>
 </footer>
 

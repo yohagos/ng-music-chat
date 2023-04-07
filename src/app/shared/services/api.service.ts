@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { Observable } from 'rxjs';
+import { catchError, map } from "rxjs/operators";
+import { Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -25,7 +25,8 @@ export class ApiService {
         res => {
           return res
         }
-      )
+      ),
+      catchError(this.handleErrors)
     );
   }
 
@@ -38,7 +39,8 @@ export class ApiService {
         res => {
           return res
         }
-      )
+      ),
+      catchError(this.handleErrors)
     );
   }
 
@@ -58,7 +60,8 @@ export class ApiService {
         res => {
           return res
         }
-      )
+      ),
+      catchError(this.handleErrors)
     )
   }
 
@@ -72,7 +75,8 @@ export class ApiService {
         res => {
           return res
         }
-      )
+      ),
+      catchError(this.handleErrors)
     )
   }
 
@@ -94,7 +98,8 @@ export class ApiService {
         res => {
           return res
         }
-      )
+      ),
+      catchError(this.handleErrors)
     )
   }
 
@@ -108,7 +113,8 @@ export class ApiService {
         res => {
           return res
         }
-      )
+      ),
+      catchError(this.handleErrors)
     )
   }
 
@@ -118,8 +124,21 @@ export class ApiService {
         res => {
           return res
         }
-      )
+      ),
+      catchError(this.handleErrors)
     )
+  }
+
+  handleErrors(error: any) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+        // Get client-side error
+        errorMessage = error.error.message;
+    } else {
+        // Get server-side error
+        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError('')
   }
 
 }

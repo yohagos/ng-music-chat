@@ -3,24 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatSelectModule } from "@angular/material/select";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatChipsModule } from "@angular/material/chips";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatListModule } from "@angular/material/list";
-import { MatDividerModule } from "@angular/material/divider";
-import { MatSliderModule } from "@angular/material/slider";
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { MusicModule } from './music/music.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MessagesModule } from "./messages/messages.module";
+import { MaterialsModule } from './materials.module';
 
 import { SignInComponent } from './main/sign-in/sign-in.component';
 import { ProfileComponent } from './main/profile/profile.component';
@@ -50,18 +38,7 @@ import { GlobalErrorHandlerService } from "./shared/services/global-error-handle
     MusicModule,
     SharedModule,
     AppRoutingModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatListModule,
-    MatSliderModule,
-    MatToolbarModule,
-    MatChipsModule,
-    MatSnackBarModule
+    MaterialsModule
   ],
   exports: [],
   providers: [

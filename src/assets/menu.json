@@ -1,0 +1,38 @@
+[
+  {
+    "text": "Home",
+    "icon": "home",
+    "routerLink": "/home"
+  },
+  {
+    "text": "Sign In",
+    "icon": "sign_in",
+    "routerLink": "/signin"
+  },
+  {
+    "text": "Sign Up",
+    "icon": "signup",
+    "routerLink": "/signup"
+  },
+  {
+    "text": "Suit",
+    "icon": "inventory_2",
+    "children": [{
+            "text": "Category",
+            "icon": "category",
+            "routerLink": "/product/category"
+        },
+        {
+            "text": "Sub Category",
+            "icon": "layers",
+            "routerLink": "/product/sub-category"
+        },
+        {
+            "text": "Product",
+            "icon": "all_inbox",
+            "routerLink": "/product/manage"
+        }
+    ]
+  }
+]
+

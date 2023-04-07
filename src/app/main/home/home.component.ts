@@ -1,7 +1,5 @@
-import { ApiService } from 'src/app/shared/services/api.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserBase } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +8,7 @@ import { UserBase } from 'src/app/shared/models/user.model';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router,
-              private api: ApiService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
