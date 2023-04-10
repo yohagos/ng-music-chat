@@ -1,16 +1,10 @@
-<section>
-  <mat-icon (click)="logout()">exit_to_app</mat-icon><br>
-  <mat-icon (click)="toSongs()">music_video</mat-icon><br>
-  <mat-icon (click)="toContacts()"> contacts</mat-icon><br>
-  <mat-icon (click)="toMessages()"> message</mat-icon>
-</section>
+
 
 <h1>Profile <div *ngIf="currentUser">{{currentUser.firstname}} {{currentUser.lastname}}</div></h1>
 
-
 <mat-card>
-  <mat-card-content *ngIf="profilePhoto.length > 0">
-    <img [src]="profilePhoto" alt="profile photo" class="profile-pic">
+  <mat-card-content>
+    <img *ngIf="!profilePhoto" [src]="profilePhoto" class="profile-pic">
   </mat-card-content>
 
   <button mat-raised-button color="primary">

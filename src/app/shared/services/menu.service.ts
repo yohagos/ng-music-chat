@@ -5,7 +5,7 @@ import { Subject } from "rxjs";
   providedIn: 'root'
 })
 export class MenuService {
-  private data = new Subject<any>();
+  private data: Subject<any> = new Subject<any>();
 
   setMenu(value: any) {
     this.data.next(value);

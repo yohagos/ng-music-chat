@@ -1,19 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Contacts } from '../shared/models/contacts.model';
 
 import { Message, WebsocketService } from '../shared/services/websocket.service';
 import { ApiService } from '../shared/services/api.service';
-import { WebsocketComponent } from './websocket/websocket.component';
+import { MenuService } from '../shared/services/menu.service';
+import { AuthService } from '../shared/services/auth.service';
 
+interface MenuItem {
+  label: string;
+  icon?: string;
+  action: () => void;
+}
 
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements AfterViewInit {
+  menu!: MenuItem[]
+
   showWebSocket = false
 
   msgList!: Message[]
@@ -24,17 +32,57 @@ export class MessagesComponent implements OnInit {
   constructor(
     private router: Router,
     private api: ApiService,
-    private wsService: WebsocketService
+    private wsService: WebsocketService,
+    private menuService: MenuService,
+    private auth: AuthService
     ) {
       this.loadContacts()
     }
 
-  ngOnInit(): void {
-  }
+    ngAfterViewInit() {
+      this.loadMenu();
+    }
 
-  toProfile() {
-    this.router.navigate(['/profile'])
-  }
+    loadMenu() {
+      setTimeout(() => {
+        this.menu = [
+          {
+            label: 'Profile',
+            icon: 'supervised_user_circle',
+            action: () => {
+              this.router.navigate(['/profile']);
+            },
+          },
+          {
+            label: 'Songs',
+            icon: 'music_video',
+            action: () => {
+              this.router.navigate(['/songs']);
+            },
+          },
+          {
+            label: 'Contacts',
+            icon: 'contacts',
+            action: () => {
+              this.router.navigate(['/contact']);
+            },
+          },
+          {
+            label: 'Logout',
+            icon: 'exit_to_app',
+            action: () => {
+              this.logout();
+            },
+          },
+        ];
+        this.menuService.setMenu(this.menu);
+      });
+    }
+
+    logout() {
+      this.auth.clearStorage();
+      this.router.navigate(['/home']);
+    }
 
   loadContacts() {
     this.api.getRequestWithToken('contacts/contacts').subscribe(

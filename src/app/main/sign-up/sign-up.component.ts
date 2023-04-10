@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -15,10 +15,8 @@ interface MenuItem {
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
-  @Input() menu!: MenuItem[];
-
-  @Output() menuOut = new EventEmitter<Array<MenuItem>>();
+export class SignUpComponent {
+  menu!: MenuItem[];
 
   check = false;
 
@@ -32,24 +30,16 @@ export class SignUpComponent implements OnInit {
   constructor(public fb: UntypedFormBuilder,
               private api: ApiService,
               private router: Router,
-              private menuService: MenuService) { }
-
-  ngOnInit() {
-    this.menu = [
-      { label: 'Home', action: () => {this.router.navigate(['/home'])} },
-      { label: 'Sign In', action: () => { this.router.navigate(['/signin']) } },
-    ];
-
-    this.menuService.setMenu(this.menu)
-  }
-
-  backHome() {
-    this.router.navigate(['/home']);
-  }
-
-  signIn() {
-    this.router.navigate(['/signin']);
-  }
+              private menuService: MenuService,
+              private cdr: ChangeDetectorRef) {
+                setTimeout(() => {
+                  this.menu = [
+                    { label: 'Home', action: () => {this.router.navigate(['/home'])} },
+                    { label: 'Sign In', action: () => { this.router.navigate(['/signin']) } },
+                  ];
+                  this.menuService.setMenu(this.menu)
+                })
+              }
 
   password(event: Event) {
     if (document.getElementById('p1') === document.getElementById('p2')) {

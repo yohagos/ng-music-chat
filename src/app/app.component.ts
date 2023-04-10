@@ -1,38 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, AfterContentChecked, AfterViewChecked, AfterContentInit, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { MenuService } from './shared/services/menu.service';
 
 interface MenuItem {
   label: string;
+  icon?: string;
   action: () => void;
 }
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   menuItems!: MenuItem[];
 
-  constructor(private router: Router, private menuService: MenuService ) {
-    this.menuService.getData().subscribe( value => {
-        this.menuItems = value as MenuItem[]
-      }
-    );
+  constructor(private router: Router, private menuService: MenuService) {
+    this.loadMenu()
+  }
 
-    this.router.events.subscribe(value => {
-      if (value instanceof NavigationEnd) {
-        if (value.url == '/home') {
-          this.menuItems = [
-            { label: 'Sign up', action: () => { this.router.navigate(['/signup']) } },
-            { label: 'Sign in', action: () => { this.router.navigate(['/signin']) } },
-          ];
-        }
-      }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.loadMenu()
     })
   }
 
+  loadMenu() {
+    this.menuService.getData().subscribe((value) => {
+      this.menuItems = value as MenuItem[];
+    });
 
+    this.router.events.subscribe((value) => {
+      if (value instanceof NavigationEnd) {
+        if (value.url == '/home') {
+          this.menuItems = [
+            {
+              label: 'Sign up',
+              action: () => {
+                this.router.navigate(['/signup']);
+              },
+            },
+            {
+              label: 'Sign in',
+              action: () => {
+                this.router.navigate(['/signin']);
+              },
+            },
+          ];
+        }
+      }
+    });
+  }
 }
-

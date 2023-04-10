@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
@@ -7,43 +7,53 @@ import { UserBase } from 'src/app/shared/models/user.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FunctionsService } from 'src/app/shared/services/functions.service';
+import { MenuService } from 'src/app/shared/services/menu.service';
+
+interface MenuItem {
+  label: string;
+  icon?: string;
+  action: () => void;
+}
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements AfterViewInit {
   sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-  profilePhoto = ''
+  profilePhoto!: string;
 
   currentUser!: UserBase
 
-  errorMessage = ''
+  menu!: MenuItem[]
 
   constructor(
     private auth: AuthService,
     private api: ApiService,
     private router: Router,
-    private fr: FunctionsService
+    private fr: FunctionsService,
+    private menuService: MenuService,
   ) {
     this.getProfilePhoto()
     this.getCurrentUserInfo()
   }
 
-  ngOnInit() {  }
-
-  toSongs() {
-    this.router.navigate(['/songs']);
+  ngAfterViewInit() {
+    this.loadMenu()
   }
 
-  toContacts() {
-    this.router.navigate(['/contact'])
-  }
-
-  toMessages() {
-    this.router.navigate(['/messages'])
+  loadMenu() {
+    setTimeout(() => {
+      this.menu = [
+        { label: 'Songs', icon: 'music_video', action: () => {this.router.navigate(['/songs'])} },
+        { label: 'Contacts', icon: 'contacts', action: () => { this.router.navigate(['/contact']) } },
+        { label: 'Messages', icon: 'message', action: () => { this.router.navigate(['/messages']) } },
+        { label: 'Logout', icon: 'exit_to_app', action: () => { this.logout() } },
+      ];
+      this.menuService.setMenu(this.menu)
+    })
   }
 
   logout() {

@@ -1,20 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
 
 import { Music, MusicBase } from '../shared/models/music.model';
+
 import { ApiService } from '../shared/services/api.service';
 import { AuthService } from '../shared/services/auth.service';
 import { FunctionsService } from '../shared/services/functions.service';
 import { PlayerService } from '../shared/services/player.service';
+import { MenuService } from '../shared/services/menu.service';
+
+interface MenuItem {
+  label: string;
+  icon?: string;
+  action: () => void;
+}
 
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.css'],
 })
-export class MusicComponent implements OnInit {
+export class MusicComponent implements OnInit, AfterViewInit {
+  menu!: MenuItem[]
+
   musicList: MusicBase[] = [];
 
   addSongForm!: UntypedFormGroup;
@@ -29,7 +38,8 @@ export class MusicComponent implements OnInit {
     private router: Router,
     public fb: UntypedFormBuilder,
     private fr: FunctionsService,
-    private player: PlayerService
+    private player: PlayerService,
+    private menuService: MenuService
   ) {}
 
   ngOnInit(): void {
@@ -41,14 +51,51 @@ export class MusicComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.loadMenu();
+  }
+
+  loadMenu() {
+    setTimeout(() => {
+      this.menu = [
+        {
+          label: 'Profile',
+          icon: 'supervised_user_circle',
+          action: () => {
+            this.router.navigate(['/profile']);
+          },
+        },
+        {
+          label: 'Contacts',
+          icon: 'contacts',
+          action: () => {
+            this.router.navigate(['/contact']);
+          },
+        },
+        {
+          label: 'Messages',
+          icon: 'message',
+          action: () => {
+            this.router.navigate(['/messages']);
+          },
+        },
+        {
+          label: 'Logout',
+          icon: 'exit_to_app',
+          action: () => {
+            this.logout();
+          },
+        },
+      ];
+      this.menuService.setMenu(this.menu);
+    });
+  }
+
   logout() {
     this.auth.clearStorage();
     this.router.navigate(['/home']);
   }
 
-  profile() {
-    this.router.navigate(['/profile'])
-  }
 
   musicAll() {
     this.api.getRequestWithToken('music/all').subscribe(

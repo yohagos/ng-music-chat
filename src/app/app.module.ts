@@ -17,7 +17,7 @@ import { SignUpComponent } from './main/sign-up/sign-up.component';
 import { ContactsComponent } from './contacts/contacts.component';
 
 import { InterceptosService } from './shared/services/interceptos.service';
-import { GlobalErrorHandlerService } from "./shared/services/global-error-handler.service";
+import { ErrorInterceptor } from './shared/services/error.interceptor';
 
 
 @NgModule({
@@ -48,8 +48,9 @@ import { GlobalErrorHandlerService } from "./shared/services/global-error-handle
       multi: true
     },
     {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandlerService
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
