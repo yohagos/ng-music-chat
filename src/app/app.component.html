@@ -1,1 +1,8 @@
+<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let item of menuItems">
+    <button mat-menu-item (click)="item.action()" (menu)="menuItems">{{ item.label }}</button>
+  </ng-container>
+</mat-menu>
+
 <router-outlet></router-outlet>

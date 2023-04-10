@@ -1,12 +1,17 @@
 
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { MenuService } from 'src/app/shared/services/menu.service';
 
+interface MenuItem {
+  label?: string;
+  action?: () => void;
+}
 
 @Component({
   selector: 'app-sign-in',
@@ -14,13 +19,15 @@ import { ApiService } from 'src/app/shared/services/api.service';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+  @Input() menu!: MenuItem[];
 
   signInForm!: UntypedFormGroup
 
   constructor(public fb: UntypedFormBuilder,
               private auth: AuthService,
               private api: ApiService,
-              private router: Router) {
+              private router: Router,
+              private menuService: MenuService) {
                 this.signInForm = this.fb.group({
                   username: ['', Validators.required],
                   password: ['', Validators.required]
@@ -28,7 +35,11 @@ export class SignInComponent implements OnInit {
               }
 
   ngOnInit() {
-
+    this.menu = [
+      { label: 'Home', action: () => {this.router.navigate(['/home'])} },
+      { label: 'Sign Up', action: () => { this.router.navigate(['/signup']) } },
+    ];
+    this.menuService.setMenu(this.menu)
   }
 
   backHome() {
