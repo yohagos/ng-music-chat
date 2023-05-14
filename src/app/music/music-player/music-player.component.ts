@@ -3,7 +3,6 @@ import * as moment from 'moment';
 import { Event, NavigationStart, Router } from "@angular/router";
 
 import { Music } from 'src/app/shared/models/music.model';
-
 import { PlayerService } from 'src/app/shared/services/player.service';
 
 
@@ -16,12 +15,30 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
 
   musicList: Music[] = [];
 
-  music!: Music;
-
   audio = new Audio();
   musicLength: string = '0:00';
   duration: number = 1;
   currentTime: string = '0:00';
+  volume: number = 16;
+
+  loading = this.player.getObservableOfPlaylist();
+
+  displayedColumns: string[] = ['title', 'artist'];
+  trackPointer: number = 0;
+  currentMusic: Music = {
+    base: {
+      artist: '',
+      title: '',
+      genre: '',
+      featuring: '',
+      path: '',
+      uploaded_by: '',
+      id: 0
+    },
+    url: ''
+  }
+  currentTotalSeconds!: number;
+  currentDuration!: moment.Duration
 
   constructor(
       public router: Router,
@@ -30,6 +47,8 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
     this.audio.ondurationchange = () => {
       const totalSeconds = Math.floor(this.audio.duration),
         duration = moment.duration(totalSeconds, 'seconds');
+      this.currentTotalSeconds = totalSeconds;
+      this.currentDuration = duration
       this.musicLength =
         duration.seconds() < 10
           ? `${Math.floor(duration.asMinutes())}:
@@ -51,18 +70,14 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
           : `${Math.floor(duration.asMinutes())}:
                           ${duration.seconds()}`;
     };
+  }
 
+  ngOnInit(): void {
     if (this.player.playlist) {
       this.musicList = this.player.getMultipleSongs()
     } else {
       this.musicList.push(this.player.getSingleSong())
     }
-
-    console.log(this.musicList)
-  }
-
-  ngOnInit(): void {
-
   }
 
   ngOnChanges() {
@@ -79,25 +94,8 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
     this.audio.pause()
   }
 
-  displayedColumns: string[] = ['title', 'artist', 'album'];
-  trackPointer: number = 0;
-  currentMusic: Music = {
-    base: {
-      artist: '',
-      title: '',
-      genre: '',
-      featuring: '',
-      path: '',
-      uploaded_by: '',
-      id: 0
-    },
-    url: ''
-  }
-
-  play(index?: number): void {
-    if (index !== undefined && index < this.musicList.length) {
-        index = 0;
-    }
+  play(): void {
+    let index = 0;
 
     if (index === undefined) {
       if (this.audio.paused) {
@@ -145,7 +143,8 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   durationSlider(event: any) {
-    this.audio.currentTime = event.value;
+    console.log(event.value)
+    this.audio.currentTime = event.value * 60;
   }
 
   navigateToSongs() {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Music } from '../models/music.model';
+import { of } from 'rxjs';
 
 
 @Injectable({
@@ -8,6 +9,7 @@ import { Music } from '../models/music.model';
 export class PlayerService {
   singleSong!: Music;
   playlist!: Music[];
+  obs = of(this.playlist)
 
   constructor() { }
 
@@ -41,6 +43,10 @@ export class PlayerService {
       url: ''
     }
     this.playlist = []
+  }
+
+  getObservableOfPlaylist() {
+    return this.obs;
   }
 
 }

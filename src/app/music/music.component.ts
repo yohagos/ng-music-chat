@@ -9,6 +9,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { FunctionsService } from '../shared/services/functions.service';
 import { PlayerService } from '../shared/services/player.service';
 import { MenuService } from '../shared/services/menu.service';
+import { Observable } from 'rxjs';
 
 interface MenuItem {
   label: string;
@@ -160,7 +161,9 @@ export class MusicComponent implements OnInit, AfterViewInit {
         }
       )
     });
+    setTimeout(() => {}, 1);
     this.player.setMultipleSongs(playlist)
+    setTimeout(() => {}, 1);
     this.router.navigate(['/player'])
   }
 
