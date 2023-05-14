@@ -13,7 +13,7 @@ import { PlayerService } from 'src/app/shared/services/player.service';
 })
 export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
 
-  musicList: Music[] = [];
+  musicList!: Music[];
 
   audio = new Audio();
   musicLength: string = '0:00';
@@ -56,11 +56,7 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.player.playlist) {
-      this.musicList = this.player.getMultipleSongs()
-    } else {
-      this.musicList.push(this.player.getSingleSong())
-    }
+    this.musicList = this.player.getMultipleSongs()
   }
 
   ngOnChanges() {
