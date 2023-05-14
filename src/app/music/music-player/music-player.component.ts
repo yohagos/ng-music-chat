@@ -24,21 +24,6 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
   loading = this.player.getObservableOfPlaylist();
 
   displayedColumns: string[] = ['title', 'artist'];
-  trackPointer: number = 0;
-  currentMusic: Music = {
-    base: {
-      artist: '',
-      title: '',
-      genre: '',
-      featuring: '',
-      path: '',
-      uploaded_by: '',
-      id: 0
-    },
-    url: ''
-  }
-  currentTotalSeconds!: number;
-  currentDuration!: moment.Duration
 
   constructor(
       public router: Router,
@@ -47,8 +32,6 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
     this.audio.ondurationchange = () => {
       const totalSeconds = Math.floor(this.audio.duration),
         duration = moment.duration(totalSeconds, 'seconds');
-      this.currentTotalSeconds = totalSeconds;
-      this.currentDuration = duration
       this.musicLength =
         duration.seconds() < 10
           ? `${Math.floor(duration.asMinutes())}:
@@ -94,8 +77,24 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
     this.audio.pause()
   }
 
-  play(): void {
-    let index = 0;
+  trackPointer: number = 0;
+  currentMusic?: Music = {
+    base: {
+      artist: '',
+      title: '',
+      genre: '',
+      featuring: '',
+      path: '',
+      uploaded_by: '',
+      id: 0
+    },
+    url: ''
+  }
+
+  play(index?: number): void {
+    if (index !== undefined && index < this.musicList.length) {
+      index = 0;
+    }
 
     if (index === undefined) {
       if (this.audio.paused) {
@@ -117,22 +116,29 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   prev(): void {
-    this.trackPointer = this.trackPointer--
-    if (this.trackPointer > 0) {
+    this.trackPointer = this.trackPointer-1
+    if (this.trackPointer < 0) {
       this.trackPointer = this.musicList.length - 1
+      this.currentMusic = this.musicList[this.trackPointer];
+      this.audio.src = this.currentMusic.url;
+      this.audio.play();
+    } else {
+      this.currentMusic = this.musicList[this.trackPointer];
+      this.audio.src = this.currentMusic.url;
+      this.audio.play();
     }
-    this.currentMusic = this.musicList[this.trackPointer];
-    this.audio.src = this.currentMusic.url;
-    this.audio.play();
   }
 
   next(): void {
-    this.trackPointer = this.trackPointer++
+    this.trackPointer = this.trackPointer+1;
     let currentIndex = this.trackPointer;
-    if (currentIndex > this.musicList.length) {
+    if (currentIndex > this.musicList.length-1) {
       this.trackPointer = 0
+      this.currentMusic = this.musicList[this.trackPointer]
+      this.audio.src = this.currentMusic.url
+      this.audio.play()
     } else {
-      this.currentMusic = this.musicList[this.trackPointer];
+      this.currentMusic = this.musicList[currentIndex];
       this.audio.src = this.currentMusic.url;
       this.audio.play();
     }
@@ -143,13 +149,7 @@ export class MusicPlayerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   durationSlider(event: any) {
-    console.log(event.value)
-    this.audio.currentTime = event.value * 60;
-  }
-
-  navigateToSongs() {
-    this.ngOnDestroy()
-    this.router.navigate(['/songs'])
+    this.audio.currentTime = event.value;
   }
 
 }
