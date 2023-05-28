@@ -1,7 +1,8 @@
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -15,6 +16,8 @@ import { ProfileComponent } from './main/profile/profile.component';
 import { HomeComponent } from './main/home/home.component';
 import { SignUpComponent } from './main/sign-up/sign-up.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { NavbarComponent } from './main/navbar/navbar.component';
+import { ToolbarComponent } from './main/toolbar/toolbar.component';
 
 import { InterceptosService } from './shared/services/interceptos.service';
 import { ErrorInterceptor } from './shared/services/error.interceptor';
@@ -28,6 +31,8 @@ import { ErrorInterceptor } from './shared/services/error.interceptor';
     HomeComponent,
     SignUpComponent,
     ContactsComponent,
+    NavbarComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +42,7 @@ import { ErrorInterceptor } from './shared/services/error.interceptor';
     MessagesModule,
     MusicModule,
     SharedModule,
+    FlexLayoutModule,
     AppRoutingModule,
     MaterialsModule
   ],

@@ -1,11 +1,4 @@
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <ng-container *ngFor="let item of menuItems">
-    <button mat-menu-item (click)="item.action()" (menu)="menuItems">
-      {{ item.label }}
-      <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
-    </button>
-  </ng-container>
-</mat-menu>
+<app-toolbar (toggleSidenavEvent)="toggleSidenav()"></app-toolbar>
+<app-navbar [isSidenavOpen]="isSidenavOpen"></app-navbar>
 
 <router-outlet></router-outlet>

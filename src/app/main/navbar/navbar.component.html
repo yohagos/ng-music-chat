@@ -1,0 +1,9 @@
+<mat-sidenav-container>
+  <mat-sidenav [opened]="isSidenavOpen">
+    Sidenav Content
+  </mat-sidenav>
+  <mat-sidenav-content *ngIf="isLoggedIn">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

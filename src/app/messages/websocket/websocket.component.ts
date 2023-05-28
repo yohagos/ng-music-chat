@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy , Input} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { duration } from 'moment';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { Message, WebsocketService } from 'src/app/shared/services/websocket.service';
 

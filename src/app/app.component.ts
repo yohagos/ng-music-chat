@@ -1,6 +1,5 @@
-import { Component, AfterViewInit, AfterContentChecked, AfterViewChecked, AfterContentInit, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { MenuService } from './shared/services/menu.service';
+import { Component, AfterViewInit } from '@angular/core';
+import { AuthService } from './shared/services/auth.service';
 
 interface MenuItem {
   label: string;
@@ -13,43 +12,19 @@ interface MenuItem {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit {
-  menuItems!: MenuItem[];
+export class AppComponent {
+  isSidenavOpen = false;
 
-  constructor(private router: Router, private menuService: MenuService) {
-    this.loadMenu()
+  constructor(private authService: AuthService) { }
+
+  get isLoggedIn() {
+    if (this.authService.getToken()) {
+      return true
+    }
+    return false
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.loadMenu()
-    })
-  }
-
-  loadMenu() {
-    this.menuService.getData().subscribe((value) => {
-      this.menuItems = value as MenuItem[];
-    });
-
-    this.router.events.subscribe((value) => {
-      if (value instanceof NavigationEnd) {
-        if (value.url == '/home') {
-          this.menuItems = [
-            {
-              label: 'Sign up',
-              action: () => {
-                this.router.navigate(['/signup']);
-              },
-            },
-            {
-              label: 'Sign in',
-              action: () => {
-                this.router.navigate(['/signin']);
-              },
-            },
-          ];
-        }
-      }
-    });
+  toggleSidenav() {
+    this.isSidenavOpen = !this.isSidenavOpen
   }
 }
