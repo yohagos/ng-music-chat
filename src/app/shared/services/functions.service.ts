@@ -43,7 +43,6 @@ export class FunctionsService {
 
   toggleSideNav() {
     this.toggleNav.next(!this.toggleNav.value)
-    console.log(this.toggleNav.value)
   }
 
 }

@@ -24,7 +24,6 @@ export class AppComponent {
   }
 
   toggleSidenav() {
-    console.log('open side nav')
     this.isSidenavOpen = !this.isSidenavOpen
   }
 }

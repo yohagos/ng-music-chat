@@ -107,7 +107,7 @@ export class MusicComponent implements OnInit, AfterViewInit {
 
     this.api.postUploadFile('music/add_song',fd).subscribe(
       data => {
-        console.log(data)
+        
       }
     )
   }

@@ -16,7 +16,6 @@ export class NavbarComponent implements OnChanges{
 
   constructor(private functions: FunctionsService) {
     this.list = this.functions.getList()
-    console.log(this.list)
   }
 
   ngOnChanges(changes: SimpleChanges) {
