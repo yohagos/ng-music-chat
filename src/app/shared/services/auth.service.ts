@@ -21,4 +21,12 @@ export class AuthService {
   clearStorage() {
     localStorage.clear();
   }
+
+  isLoggedIn() {
+    if (this.getToken()) {
+      console.log(this.getToken())
+      return true
+    }
+    return false
+  }
 }

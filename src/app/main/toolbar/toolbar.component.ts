@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { FunctionsService } from 'src/app/shared/services/functions.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,18 +9,39 @@ import { Router } from '@angular/router';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent {
-  @Output() toggleSidenavEvent = new EventEmitter<void>();
+  loggedIn = false
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private functions: FunctionsService, private authService: AuthService) {
+    this.isLoggedIn()
+  }
 
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isLoggedIn()
+      }
+    })
   }
 
   toggleSidenav() {
-    this.toggleSidenavEvent.emit();
+    this.functions.toggleSideNav()
   }
 
   toLogin() {
     this.router.navigate(['/signin'])
+  }
+
+  toSignUp() {
+    this.router.navigate(['/signup'])
+  }
+
+  isLoggedIn() {
+    this.loggedIn = this.authService.isLoggedIn()
+  }
+
+  logout() {
+    this.authService.clearStorage()
+    this.router.navigate(['/'])
   }
 
 }

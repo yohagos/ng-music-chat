@@ -43,6 +43,7 @@ export class InterceptosService {
   checkTokenExpiration() {
     const token = this.auth.getToken()
     if (!token) {
+      this.auth.clearStorage()
       this.router.navigate(['/signin'])
       return
     }

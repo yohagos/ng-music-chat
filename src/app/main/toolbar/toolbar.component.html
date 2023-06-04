@@ -4,10 +4,20 @@
   </button>
   <span>My App</span>
   <span class="spacer"></span>
-  <button mat-icon-button (click)="toLogin()" >
-    <mat-icon>
-      login
-    </mat-icon>
+
+  <button mat-button *ngIf="!loggedIn" (click)="toLogin()" >
+    Sign in
   </button>
+  
+  <button mat-button *ngIf="!loggedIn" (click)="toSignUp()">
+    Sign up
+  </button>
+
+
+  <button mat-button *ngIf="loggedIn" (click)="logout()">
+    Logout
+  </button>
+
+
 
 </mat-toolbar>

@@ -15,16 +15,16 @@ interface MenuItem {
 export class AppComponent {
   isSidenavOpen = false;
 
+  loggedIn = false
+
   constructor(private authService: AuthService) { }
 
   get isLoggedIn() {
-    if (this.authService.getToken()) {
-      return true
-    }
-    return false
+    return this.authService.isLoggedIn()
   }
 
   toggleSidenav() {
+    console.log('open side nav')
     this.isSidenavOpen = !this.isSidenavOpen
   }
 }

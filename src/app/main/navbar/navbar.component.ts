@@ -1,21 +1,25 @@
-import { Component, Input } from '@angular/core';
-import { AuthGuardService } from 'src/app/shared/services/auth-guard.service';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { Route } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { FunctionsService } from 'src/app/shared/services/functions.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
-  @Input() isSidenavOpen = false;
+export class NavbarComponent implements OnChanges{
+  isSidenavOpen = this.functions.toggleNav.value;
 
-  constructor(private authService: AuthService) {}
+  list: Route[] = []
 
-  get isLoggedIn() {
-    if (this.authService.getToken()) {
-      return true
-    }
-    return false
+  constructor(private functions: FunctionsService) {
+    this.list = this.functions.getList()
+    console.log(this.list)
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    changes['isSidenavOpen'].currentValue === true
   }
 }

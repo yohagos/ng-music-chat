@@ -1,9 +1,12 @@
-<mat-sidenav-container>
-  <mat-sidenav [opened]="isSidenavOpen">
-    Sidenav Content
+<mat-sidenav-container autosize>
+  <mat-sidenav mode="side" [opened]="isSidenavOpen">
+
   </mat-sidenav>
-  <mat-sidenav-content *ngIf="isLoggedIn">
-    <router-outlet></router-outlet>
+  <mat-sidenav-content>
+    <mat-action-list>
+      <button mat-action-item *ngFor="let item of list" mat-raised-button>
+        {{ item.title }}
+      </button>
+    </mat-action-list>
   </mat-sidenav-content>
 </mat-sidenav-container>
-

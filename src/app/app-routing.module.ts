@@ -21,40 +21,48 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    title: 'Home'
   },
   {
     path: 'signin',
-    component: SignInComponent
+    component: SignInComponent,
+    title: 'Sign in'
   },
   {
     path: 'signup',
-    component: SignUpComponent
+    component: SignUpComponent,
+    title: 'Sign Up'
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    title: 'Profile'
   },
   {
     path: 'songs',
     component: MusicComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    title: 'Music'
   },
   {
     path: 'player',
     component: MusicPlayerComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    title: 'Music Player'
   },
   {
     path: 'contact',
     component: ContactsComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    title: 'Contacts'
   },
   {
     path: 'messages',
     component: MessagesComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    title: 'Chat'
   }
 ];
 
@@ -62,4 +70,9 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  getRoutingList() {
+    const list = routes.filter((route) => route.canActivate != null)
+    return list;
+  }
+}

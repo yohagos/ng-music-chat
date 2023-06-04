@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Route } from '@angular/router';
 import { ProfileComponent } from 'src/app/main/profile/profile.component';
 import { AuthService } from './auth.service';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +11,13 @@ import { AuthService } from './auth.service';
 export class FunctionsService {
   public sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-  value = ''
+  list: Route[] = []
 
-  constructor(private router: Router) { }
+  public toggleNav: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+
+  constructor(private routing: AppRoutingModule) {
+    this.setList()
+  }
 
   async readFile(input: Blob): Promise<string> {
     const fr = new FileReader()
@@ -27,6 +33,17 @@ export class FunctionsService {
     )
   }
 
-  
+  setList() {
+    this.list = this.routing.getRoutingList()
+  }
+
+  getList() {
+    return this.list
+  }
+
+  toggleSideNav() {
+    this.toggleNav.next(!this.toggleNav.value)
+    console.log(this.toggleNav.value)
+  }
 
 }
