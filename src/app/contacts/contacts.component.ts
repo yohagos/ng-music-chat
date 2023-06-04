@@ -70,22 +70,10 @@ export class ContactsComponent implements AfterViewInit {
           action: () => {
             this.router.navigate(['/messages']);
           },
-        },
-        {
-          label: 'Logout',
-          icon: 'exit_to_app',
-          action: () => {
-            this.logout();
-          },
-        },
+        }
       ];
       this.menuService.setMenu(this.menu);
     });
-  }
-
-  logout() {
-    this.auth.clearStorage();
-    this.router.navigate(['/signin']);
   }
 
   loadReqList() {
