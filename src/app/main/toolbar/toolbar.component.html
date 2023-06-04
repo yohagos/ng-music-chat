@@ -1,23 +1,42 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button (click)="toggleSidenav()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>My App</span>
-  <span class="spacer"></span>
+<mat-sidenav-container>
+  <mat-sidenav #nav mode="side" opened="true">
+    <mat-nav-list>
+      <mat-list-item [routerLink]="'profile'">
+        <mat-icon>home</mat-icon>
+        <span>Profile</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'songs'">
+        <mat-icon>library_music</mat-icon>
+        <span>Music</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'contact'">
+        <mat-icon>contacts</mat-icon>
+        <span>Contacts</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'messages'">
+        <mat-icon>chat</mat-icon>
+        <span>Chats</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-button *ngIf="loggedIn" (click)="toggle(nav)">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>My App</span>
+      <span class="spacer"></span>
 
-  <button mat-button *ngIf="!loggedIn" (click)="toLogin()" >
-    Sign in
-  </button>
-  
-  <button mat-button *ngIf="!loggedIn" (click)="toSignUp()">
-    Sign up
-  </button>
-
-
-  <button mat-button *ngIf="loggedIn" (click)="logout()">
-    Logout
-  </button>
-
-
-
-</mat-toolbar>
+      <button mat-button *ngIf="!loggedIn" (click)="toLogin()" >
+        Sign in
+      </button>
+      <button mat-button *ngIf="!loggedIn" (click)="toSignUp()">
+        Sign up
+      </button>
+      <button mat-button *ngIf="loggedIn" (click)="logout()">
+        Logout
+      </button>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

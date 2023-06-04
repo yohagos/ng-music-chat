@@ -16,7 +16,6 @@ import { ProfileComponent } from './main/profile/profile.component';
 import { HomeComponent } from './main/home/home.component';
 import { SignUpComponent } from './main/sign-up/sign-up.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { NavbarComponent } from './main/navbar/navbar.component';
 import { ToolbarComponent } from './main/toolbar/toolbar.component';
 
 import { InterceptosService } from './shared/services/interceptos.service';
@@ -31,7 +30,6 @@ import { ErrorInterceptor } from './shared/services/error.interceptor';
     HomeComponent,
     SignUpComponent,
     ContactsComponent,
-    NavbarComponent,
     ToolbarComponent
   ],
   imports: [

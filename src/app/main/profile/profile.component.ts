@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
@@ -20,7 +20,7 @@ interface MenuItem {
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements AfterViewInit {
+export class ProfileComponent {
   sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
   profilePhoto!: string;
@@ -38,28 +38,6 @@ export class ProfileComponent implements AfterViewInit {
   ) {
     this.getProfilePhoto()
     this.getCurrentUserInfo()
-  }
-
-  ngAfterViewInit() {
-    this.loadMenu()
-  }
-
-  loadMenu() {
-    setTimeout(() => {
-      this.menu = [
-        { label: 'Songs', icon: 'music_video', action: () => {this.router.navigate(['/songs'])} },
-        { label: 'Contacts', icon: 'contacts', action: () => { this.router.navigate(['/contact']) } },
-        { label: 'Messages', icon: 'message', action: () => { this.router.navigate(['/messages']) } },
-        { label: 'Logout', icon: 'exit_to_app', action: () => { this.logout() } },
-      ];
-      this.menuService.setMenu(this.menu)
-    })
-  }
-
-  logout() {
-    this.profilePhoto = '';
-    this.auth.clearStorage();
-    this.router.navigate(['/signin']);
   }
 
   getProfilePhoto() {

@@ -23,7 +23,4 @@ export class AppComponent {
     return this.authService.isLoggedIn()
   }
 
-  toggleSidenav() {
-    this.isSidenavOpen = !this.isSidenavOpen
-  }
 }
