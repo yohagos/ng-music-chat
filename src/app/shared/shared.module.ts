@@ -10,7 +10,7 @@ import { RouterModule } from "@angular/router";
 
   ],
   exports: [
-
+    MaterialsModule
   ],
   imports: [
     CommonModule,

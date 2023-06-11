@@ -1,14 +1,9 @@
-import { Component, ChangeDetectorRef, AfterViewInit, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { UserBase } from 'src/app/shared/models/user.model';
-import { MenuService } from 'src/app/shared/services/menu.service';
 
-interface MenuItem {
-  label: string;
-  action: () => void;
-}
 
 @Component({
   selector: 'app-sign-up',
@@ -16,8 +11,6 @@ interface MenuItem {
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
-  menu!: MenuItem[];
-
   check = false;
 
   createForm: UntypedFormGroup = new UntypedFormGroup({
@@ -27,18 +20,9 @@ export class SignUpComponent {
     password: new UntypedFormControl(''),
   })
 
-  constructor(public fb: UntypedFormBuilder,
-              private api: ApiService,
-              private router: Router,
-              private menuService: MenuService,
-              private cdr: ChangeDetectorRef) {
-                setTimeout(() => {
-                  this.menu = [
-                    { label: 'Home', action: () => {this.router.navigate(['/home'])} },
-                    { label: 'Sign In', action: () => { this.router.navigate(['/signin']) } },
-                  ];
-                  this.menuService.setMenu(this.menu)
-                })
+  constructor(private api: ApiService,
+              private router: Router) {
+
               }
 
   password(event: Event) {

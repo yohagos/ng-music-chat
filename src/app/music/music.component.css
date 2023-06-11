@@ -5,3 +5,7 @@
 .btn-display {
   display: contents;
 }
+
+.file-name {
+  margin-left: 1rem; 
+}

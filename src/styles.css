@@ -17,13 +17,18 @@ li {
   justify-content: center;
   align-items: center;
   height: 100%;
-
 }
 
 .card {
   width: 400px;
   margin-top: 2rem;
   max-height: 80vh;
+}
+
+.card-big {
+  width: 100vh;
+  margin-top: 2rem;
+  max-height: 85vh;
 }
 
 .login-form {

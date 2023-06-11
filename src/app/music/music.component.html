@@ -1,47 +1,53 @@
+<div class="container">
+  <div class="card card-border">
+    <button mat-stroked-button (click)="musicAll()">Music all</button>
+    <button mat-stroked-button (click)="musicList=[]">Clear</button>
 
-
-<h2>Music Component</h2>
-
-<section>
-  <button (click)="musicAll()">Music all</button>
-  <button (click)="musicList=[]">Clear</button>
-
-  <div *ngIf="musicList">
-    <button (click)="playAllSongs()">Play All</button><br><br>
-    <div *ngFor="let item of musicList">
-      <button class="btn-display" (click)="playSong(item.id, item)">{{item.id}} - {{item.artist}} - {{item.title}} - {{item.uploaded_by}}</button>
+    <div *ngIf="musicList">
+      <button mat-raised-button (click)="playAllSongs()">Play All</button><br><br>
+      <div *ngFor="let item of musicList">
+        <button class="btn-display" (click)="playSong(item.id, item)">{{item.id}} - {{item.artist}} - {{item.title}} - {{item.uploaded_by}}</button>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
-<form [formGroup]="addSongForm" (ngSubmit)="addSong()">
-  <div class="form-group">
-    <label for="artist">Artist:</label>
-    <input formControlName="artist" type="text">
-  </div>
 
-  <div class="form-group">
-    <label for="title">Title:</label>
-    <input formControlName="title" type="text">
-  </div>
 
-  <div class="form-group">
-    <label for="genre">Genre:</label>
-    <input formControlName="genre" type="text">
+<div class="container">
+  <div class="card card-border">
+    <mat-card-header>
+      <mat-card-title>Add Song</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="add-music" [formGroup]="addSongForm" (ngSubmit)="addSong()">
+        <mat-form-field>
+          <mat-label>Artist</mat-label>
+          <input matInput formControlName="artist" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Genre</mat-label>
+          <input matInput formControlName="genre" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Feature</mat-label>
+          <input matInput formControlName="feature">
+        </mat-form-field>
+        <mat-form-field>
+          <button mat-raised-button type="button" (click)="fileInput.click()">Choose File</button>
+          <input type="text" hidden matInput formControlName="fname" accept=".mp3"  />
+          <input type="file" hidden #fileInput accept=".mp3" (change)="setFile($event)" required>
+          <span class="file-name">{{getFilename()}}</span>
+        </mat-form-field>
+        <button mat-stroked-button color="primary" type="submit">Add Song</button>
+      </form>
+    </mat-card-content>
   </div>
+</div>
 
-  <div class="form-group">
-    <label for="feature">Feature:</label>
-    <input formControlName="feature" type="text">
-  </div>
 
-  <div class="form-group">
-    <label for="guide">File:</label>
-    <input type="file" #file accept=".mp3" (change)="setFile($event)">
-  </div>
-
-  <div class="form-group">
-    <button>Upload file</button>
-  </div>
-</form>
 

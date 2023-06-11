@@ -1,91 +1,43 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Music, MusicBase } from '../shared/models/music.model';
 
 import { ApiService } from '../shared/services/api.service';
-import { AuthService } from '../shared/services/auth.service';
 import { FunctionsService } from '../shared/services/functions.service';
 import { PlayerService } from '../shared/services/player.service';
-import { MenuService } from '../shared/services/menu.service';
-
-interface MenuItem {
-  label: string;
-  icon?: string;
-  action: () => void;
-}
 
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.css'],
 })
-export class MusicComponent implements OnInit, AfterViewInit {
-  menu!: MenuItem[]
-
+export class MusicComponent {
   musicList: MusicBase[] = [];
 
-  addSongForm!: UntypedFormGroup;
+  addSongForm: UntypedFormGroup = new UntypedFormGroup({
+    artist: new UntypedFormControl(''),
+    title: new UntypedFormControl(''),
+    genre: new UntypedFormControl(''),
+    feature: new UntypedFormControl(''),
+    fname: new UntypedFormControl('')
+  })
 
   file!: File
 
   url: string = ''
 
+  switch = false;
+
   constructor(
-    private auth: AuthService,
     private api: ApiService,
     private router: Router,
-    public fb: UntypedFormBuilder,
     private fr: FunctionsService,
     private player: PlayerService,
-    private menuService: MenuService
   ) {}
 
-  ngOnInit(): void {
-    this.addSongForm = this.fb.group({
-      artist: [''],
-      title: [''],
-      genre: [''],
-      feature: [''],
-    });
-  }
-
-  ngAfterViewInit() {
-    this.loadMenu();
-  }
-
-  loadMenu() {
-    setTimeout(() => {
-      this.menu = [
-        {
-          label: 'Profile',
-          icon: 'supervised_user_circle',
-          action: () => {
-            this.router.navigate(['/profile']);
-          },
-        },
-        {
-          label: 'Contacts',
-          icon: 'contacts',
-          action: () => {
-            this.router.navigate(['/contact']);
-          },
-        },
-        {
-          label: 'Messages',
-          icon: 'message',
-          action: () => {
-            this.router.navigate(['/messages']);
-          },
-        }
-      ];
-      this.menuService.setMenu(this.menu);
-    });
-  }
-
-
-  musicAll() {
+   musicAll() {
     this.api.getRequestWithToken('music/all').subscribe(
       (data) => {
         this.musicList = data;
@@ -97,6 +49,13 @@ export class MusicComponent implements OnInit, AfterViewInit {
     this.file = event.target.files[0]
   }
 
+  getFilename() {
+    if(this.file) {
+      return this.file.name;
+    }
+    return 'No File selected'
+  }
+
   addSong() {
     let fd: FormData = new FormData();
     fd.append('artist', this.addSongForm.get('artist')?.value)
@@ -104,10 +63,10 @@ export class MusicComponent implements OnInit, AfterViewInit {
     fd.append('genre', this.addSongForm.get('genre')?.value)
     fd.append('featuring', this.addSongForm.get('featuring')?.value)
     fd.append('file', this.file, this.file?.name)
-
+    console.log("send data")
     this.api.postUploadFile('music/add_song',fd).subscribe(
       data => {
-        
+        console.log(data)
       }
     )
   }

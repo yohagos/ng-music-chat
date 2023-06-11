@@ -10,6 +10,7 @@ import { HomeComponent } from '../home/home.component';
 import { SignInComponent } from '../sign-in/sign-in.component';
 import { SignUpComponent } from '../sign-up/sign-up.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
     component: ToolbarComponent,
     children: [
       {
-        path: 'home',
+        path: '',
         component: HomeComponent,
         title: 'Home'
       },
@@ -72,7 +73,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), SharedModule],
   exports: [RouterModule]
 })
 export class ToolbarModule { }
