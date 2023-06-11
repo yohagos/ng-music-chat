@@ -1,20 +1,18 @@
-<div class="container">
+<div *ngIf="!switch" class="container">
   <div class="card card-border">
     <button mat-stroked-button (click)="musicAll()">Music all</button>
     <button mat-stroked-button (click)="musicList=[]">Clear</button>
-
-    <div *ngIf="musicList">
-      <button mat-raised-button (click)="playAllSongs()">Play All</button><br><br>
-      <div *ngFor="let item of musicList">
-        <button class="btn-display" (click)="playSong(item.id, item)">{{item.id}} - {{item.artist}} - {{item.title}} - {{item.uploaded_by}}</button>
-      </div>
+    <br>
+    <div *ngIf="musicList.length > 0">
+      <button mat-raised-button class="play" color="primary" (click)="playAllSongs()">Play All</button><br><br>
+      <mat-action-list *ngFor="let item of musicList">
+        <button mat-stroked-button class="btn-display list-button" (click)="playSong(item.id, item)">{{item.artist}}  {{item.title}}</button>
+      </mat-action-list>
     </div>
   </div>
 </div>
 
-
-
-<div class="container">
+<div *ngIf="switch" class="container">
   <div class="card card-border">
     <mat-card-header>
       <mat-card-title>Add Song</mat-card-title>

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnChanges } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { NavigationEnd, Router, Event } from '@angular/router';
 
 import { Music, MusicBase } from '../shared/models/music.model';
 
@@ -13,7 +13,7 @@ import { PlayerService } from '../shared/services/player.service';
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.css'],
 })
-export class MusicComponent {
+export class MusicComponent implements OnChanges {
   musicList: MusicBase[] = [];
 
   addSongForm: UntypedFormGroup = new UntypedFormGroup({
@@ -35,7 +35,20 @@ export class MusicComponent {
     private router: Router,
     private fr: FunctionsService,
     private player: PlayerService,
-  ) {}
+  ) {
+    console.log(this.musicList)
+  }
+
+  ngOnChanges() {
+    console.log(this.musicList)
+    this.router.events.subscribe(
+      (event: Event) => {
+        if (event instanceof NavigationEnd) {
+          this.musicList = [];
+        }
+      }
+    )
+  }
 
    musicAll() {
     this.api.getRequestWithToken('music/all').subscribe(
@@ -79,10 +92,9 @@ export class MusicComponent {
         await this.fr.readFile(file).then(
           value => {
             this.url = value
+            this.openMusicPlayer(value, song)
           }
         )
-
-        this.openMusicPlayer(this.url, song)
       }
     )
   }

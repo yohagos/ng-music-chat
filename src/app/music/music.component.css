@@ -3,9 +3,19 @@
 }
 
 .btn-display {
-  display: contents;
+  width: max-content;
+}
+
+.list-button {
+  width: 100%;
+  min-width: unset;
 }
 
 .file-name {
-  margin-left: 1rem; 
+  margin-left: 1rem;
+}
+
+.play{
+  width: 100%;
+  _min-width: unset;
 }
